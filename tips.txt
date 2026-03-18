@@ -1,0 +1,172 @@
+¡Excelente idea! Aquí tienes una lista con las funciones y comandos de consola que hemos usado, organizados por categoría para que los tengas siempre a mano:
+
+---
+
+## 📋 **COMANDOS DE CONSOLA MÁS USADOS**
+
+### 1. **GIT (Control de versiones)**
+```bash
+# Clonar un repositorio desde GitHub
+git clone https://github.com/tu-usuario/tu-repositorio.git
+
+# Ver el estado de los archivos (qué cambió, qué falta agregar)
+git status
+
+# Agregar archivos al área de preparación (staging)
+git add nombre_archivo           # Un archivo específico
+git add .                         # Todos los archivos
+
+# Hacer commit (guardar cambios en el historial)
+git commit -m "Mensaje descriptivo del cambio"
+
+# Subir cambios a GitHub
+git push
+
+# Bajar cambios desde GitHub
+git pull
+
+# Ver historial de commits
+git log --oneline                 # Versión resumida
+```
+
+---
+
+### 2. **ENTORNOS VIRTUALES (Python)**
+
+**Crear entorno virtual:**
+```bash
+# Windows
+python -m venv .venv
+
+# Mac / Linux
+python3 -m venv .venv
+```
+
+**Activar entorno virtual:**
+```bash
+# Windows (Command Prompt)
+.venv\Scripts\activate
+
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+
+# Mac / Linux
+source .venv/bin/activate
+```
+
+**Desactivar entorno virtual:**
+```bash
+deactivate
+```
+
+---
+
+### 3. **PIP (Manejo de dependencias)**
+
+```bash
+# Ver librerías instaladas
+pip freeze                # Formato para requirements.txt
+pip list                  # Formato de tabla más legible
+
+# Instalar dependencias desde requirements.txt
+pip install -r requirements.txt
+
+# Instalar una librería específica
+pip install nombre_libreria
+
+# Instalar una versión específica
+pip install nombre_libreria==1.2.3
+
+# Desinstalar una librería
+pip uninstall nombre_libreria
+
+# Ver información detallada de una librería
+pip show nombre_libreria
+
+# Actualizar pip mismo
+pip install --upgrade pip
+
+# Generar/actualizar archivo requirements.txt
+pip freeze > requirements.txt
+```
+
+---
+
+### 4. **NAVEGACIÓN EN LA TERMINAL**
+
+```bash
+# Ver dónde estás (directorio actual)
+pwd                           # Windows / Mac / Linux
+
+# Listar archivos y carpetas
+dir                           # Windows
+ls                            # Mac / Linux
+ls -la                        # Mac / Linux (incluye archivos ocultos como .venv)
+
+# Cambiar de directorio
+cd nombre_carpeta             # Entrar a una carpeta
+cd ..                         # Subir un nivel (carpeta padre)
+cd /ruta/completa/al/proyecto # Ir a una ruta específica
+
+# Crear carpeta
+mkdir nombre_carpeta
+
+# Borrar archivo/carpeta (¡CUIDADO!)
+rm nombre_archivo             # Eliminar archivo
+rm -rf nombre_carpeta         # Eliminar carpeta (¡irreversible!)
+```
+
+---
+
+### 5. **ATAJOS ÚTILES EN VSCODE**
+
+| Acción | Windows/Linux | Mac |
+|--------|--------------|-----|
+| Abrir terminal integrada | `` Ctrl + ` `` | `` Cmd + ` `` |
+| Abrir paleta de comandos | `Ctrl + Shift + P` | `Cmd + Shift + P` |
+| Guardar archivo | `Ctrl + S` | `Cmd + S` |
+| Abrir Control de Código Fuente | `Ctrl + Shift + G` | `Cmd + Shift + G` |
+| Buscar en archivos | `Ctrl + Shift + F` | `Cmd + Shift + F` |
+
+---
+
+### 🎯 **FLUJO DE TRABAJO TÍPICO (RESUMEN)**
+
+Cuando trabajas en un proyecto ya existente:
+
+```bash
+# 1. Traer últimos cambios
+git pull
+
+# 2. Activar entorno virtual
+.venv\Scripts\activate          # Windows
+source .venv/bin/activate        # Mac/Linux
+
+# 3. Si hay nuevas dependencias, instalarlas
+pip install -r requirements.txt
+
+# 4. ¡A trabajar en el código!
+
+# 5. Ver qué cambió
+git status
+
+# 6. Preparar archivos para commit
+git add .
+
+# 7. Hacer commit
+git commit -m "Descripción del cambio"
+
+# 8. Subir a GitHub
+git push
+```
+
+---
+
+### 💡 **PRO TIPS**
+
+- Cuando veas `(.venv)` al inicio de la línea, **sabes que el entorno virtual está activado** ✅
+- Si algo no funciona, lo primero: ¿está activado el entorno virtual? 🤔
+- Siempre ejecuta `pip freeze > requirements.txt` después de instalar una nueva librería
+- El archivo `.gitignore` debe contener `.venv/` para no subir el entorno a GitHub
+
+¿Te sirve esta lista? ¿Quieres que agreguemos algún otro comando que creas útil?
