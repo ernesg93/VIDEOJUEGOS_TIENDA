@@ -21,7 +21,6 @@ Este documento mapea las situaciones del proyecto con los skills disponibles.
 | E2E testing | `playwright` | Tests end-to-end |
 | Commits | `GGA` | Code review automático |
 | Changelog | `changelog-maintenance` | Formato Keep a Changelog + Semver |
-| Releases/Tags | Git tags | Crear tags para GitHub Releases |
 
 ---
 
@@ -183,6 +182,7 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 | Security | Cambios de seguridad |
 
 ### Workflow completo (con changelog y tags):
+### Workflow completo (con changelog):
 
 ```
 1. sdd-apply → Implementar cambios
@@ -192,76 +192,8 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 5. Merge a master/main
 6. ACTUALIZAR CHANGELOG.md ← OBLIGATORIO
 7. git add CHANGELOG.md && git commit -m "docs: update changelog"
-8. CREAR TAG ← OBLIGATORIO para GitHub Release
-9. git push origin <tag>
+8. Crear tag si es release: git tag v1.0.0
 ```
-
----
-
-## 🏷️ Creación de Tags y Releases
-
-**OBLIGATORIO para que aparezca en GitHub Releases.**
-
-### Antes de crear un tag:
-
-1. ✅ CHANGELOG.md actualizado
-2. ✅ Último commit subido a master/main
-3. ✅ Todos los tests pasando
-
-### Comandos para crear tag:
-
-```bash
-# 1. Asegurate de estar en master
-git checkout master
-
-# 2. Pull latest
-git pull origin master
-
-# 3. Ver últimos commits
-git log --oneline -5
-
-# 4. Crear tag (seguir Semver)
-git tag v1.0.0
-
-# 5. Push del tag a GitHub
-git push origin v1.0.0
-```
-
-### Formato de tags (Semver):
-
-| Tipo | Ejemplo | Cuándo usar |
-|------|---------|-------------|
-| PATCH | `v1.0.0` → `v1.0.1` | Bug fixes |
-| MINOR | `v1.0.0` → `v1.1.0` | Nuevas features compatibles |
-| MAJOR | `v1.0.0` → `v2.0.0` | Breaking changes |
-
-### Verificar tags locales:
-
-```bash
-# Listar tags
-git tag -l
-
-# Ver tags remotos
-git ls-remote --tags origin
-```
-
-### Eliminar tag (si te equivocaste):
-
-```bash
-# Local
-git tag -d v1.0.0
-
-# Remoto
-git push origin --delete v1.0.0
-```
-
-### After pushing tag:
-
-GitHub detecta automáticamente el tag y podés crear un Release:
-1. Ir a https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/releases
-2. Click "Draft a new release"
-3. Seleccionar el tag
-4. GitHub usa el CHANGELOG.md automáticamente
 
 ---
 
