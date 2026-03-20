@@ -1,17 +1,132 @@
 {% extends 'base.html' %}
 {% load static %}
-<!-- index.html-->
+
 {% block title %}Inicio - Tienda de Videojuegos{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-body">Bienvenido a la Tienda de Videojuegos</h1>
-    <p class="text-body">Encuentra los mejores videojuegos al mejor precio.</p>
+<!-- Hero Section -->
+<section class="hero-section text-center text-white">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold mb-3 animate-fadeInUp">🎮 ¡Bienvenido a Tienda Videojuegos!</h1>
+        <p class="lead mb-4 animate-fadeInUp">Encuentra los mejores videojuegos para todas las plataformas</p>
+        <a href="#" class="btn btn-light btn-lg btn-cta animate-fadeInUp">
+            <i class="fas fa-gamepad me-2"></i> Ver Catálogo
+        </a>
+    </div>
+</section>
 
-    <img src="{% static 'img/logo.png' %}" alt="logo" class="img-fluid my-4">
+<!-- Productos Destacados -->
+<section class="container my-5">
+    <h2 class="section-title">🔥 Productos Destacados</h2>
+    <div class="row g-4">
+        <!-- Producto 1 -->
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="product-card animate-fadeInUp">
+                <img src="https://placehold.co/400x300/6f42c1/white?text=Zelda" alt="Zelda" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title">The Legend of Zelda</h5>
+                    <p class="text-muted small mb-2">Nintendo Switch</p>
+                    <p class="price mb-3">$59.99</p>
+                    <a href="#" class="btn btn-primary btn-sm">
+                        <i class="fas fa-cart-plus me-1"></i> Añadir
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 2 -->
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="product-card animate-fadeInUp" style="animation-delay: 0.1s">
+                <img src="https://placehold.co/400x300/fd7e14/white?text=GTA" alt="GTA" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title">GTA VI</h5>
+                    <p class="text-muted small mb-2">PlayStation 5</p>
+                    <p class="price mb-3">$69.99</p>
+                    <a href="#" class="btn btn-primary btn-sm">
+                        <i class="fas fa-cart-plus me-1"></i> Añadir
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 3 -->
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="product-card animate-fadeInUp" style="animation-delay: 0.2s">
+                <img src="https://placehold.co/400x300/0d6efd/white?text=Elden+Ring" alt="Elden Ring" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Elden Ring</h5>
+                    <p class="text-muted small mb-2">PC / Xbox</p>
+                    <p class="price mb-3">$49.99</p>
+                    <a href="#" class="btn btn-primary btn-sm">
+                        <i class="fas fa-cart-plus me-1"></i> Añadir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <div class="alert alert-primary">¡Bienvenido a nuestra tienda de videojuegos!</div>
-    <div class="alert alert-warning">Recuerda revisar las restricciones de edad antes de comprar.</div>
-    <div class="alert alert-danger">Algunos productos tienen stock limitado. apresurate!.</div>
-</div>
+<!-- Categorías -->
+<section class="container my-5">
+    <h2 class="section-title">🎯 Categorías</h2>
+    <div class="row text-center g-4">
+        <div class="col-4 col-sm-2 offset-sm-1">
+            <div class="category-icon">
+                <i class="fab fa-playstation"></i>
+            </div>
+            <p class="small fw-bold">PlayStation</p>
+        </div>
+        <div class="col-4 col-sm-2">
+            <div class="category-icon">
+                <i class="fab fa-xbox"></i>
+            </div>
+            <p class="small fw-bold">Xbox</p>
+        </div>
+        <div class="col-4 col-sm-2">
+            <div class="category-icon">
+                <i class="fab fa-nintendo-switch"></i>
+            </div>
+            <p class="small fw-bold">Switch</p>
+        </div>
+        <div class="col-4 col-sm-2">
+            <div class="category-icon">
+                <i class="fas fa-desktop"></i>
+            </div>
+            <p class="small fw-bold">PC</p>
+        </div>
+        <div class="col-4 col-sm-2">
+            <div class="category-icon">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+            <p class="small fw-bold">Móvil</p>
+        </div>
+    </div>
+</section>
+
+<!-- Info -->
+<section class="container my-5">
+    <div class="row g-4">
+        <div class="col-12 col-md-4">
+            <div class="text-center p-4 bg-white rounded-3 shadow-sm h-100">
+                <i class="fas fa-truck fa-2x text-primary mb-3"></i>
+                <h5>Envío Gratis</h5>
+                <p class="text-muted mb-0 small">En pedidos mayores a $50</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="text-center p-4 bg-white rounded-3 shadow-sm h-100">
+                <i class="fas fa-shield-alt fa-2x text-primary mb-3"></i>
+                <h5>Compra Segura</h5>
+                <p class="text-muted mb-0 small">Garantía en todos los productos</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="text-center p-4 bg-white rounded-3 shadow-sm h-100">
+                <i class="fas fa-headset fa-2x text-primary mb-3"></i>
+                <h5>Soporte 24/7</h5>
+                <p class="text-muted mb-0 small">Atención al cliente siempre</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
