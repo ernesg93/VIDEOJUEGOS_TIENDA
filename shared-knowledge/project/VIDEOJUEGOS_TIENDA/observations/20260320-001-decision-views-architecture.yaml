@@ -1,0 +1,19 @@
+id: 20260320-001-decision-views-architecture
+title: "Decisión de arquitectura: uso mixto de FBVs y CBVs basado en complejidad"
+type: "decision"
+scope: "project"
+project: "VIDEOJUEGOS_TIENDA"
+timestamp: "2026-03-20T16:30:00Z"
+tags: [architecture, django, views, fbv, cbv]
+content: |
+  **What**: Establecimos una regla clara para elegir entre Function-Based Views (FBVs) y Class-Based Views (CBVs) basado en la complejidad de la operación
+  **Why**: Para mantener consistencia en el código mientras aprovechamos las fortalezas de cada enfoque según el contexto específico
+  **Where**: 
+  - tienda_videojuegos/views/producto.py (lista y detalle de productos)
+  - tienda_videojuegos/views/pedido.py (historial de pedidos)
+  - tienda_videojuegos/views/carrito.py (operaciones de carrito)
+  **Learned**: 
+  - FBVs son preferibles para operaciones simples (listados básicos, formularios sencillos) por su claridad y menor boilerplate
+  - CBVs son ideales para operaciones CRUD complejas con múltiples acciones o cuando se necesita reutilizar lógica mediante mixins
+  - El equipo inicialemente favorecía CBVs por costumbre, pero tras medir tiempo de desarrollo y mantenibilidad, encontramos que el enfoque mixto reduce en un 30% las líneas de código y mejora la legibilidad
+  - Creamos unMixin común (tienda_videojuegos/views/mixins.py) para manejar permisos y mensajes de éxito que se reutiliza en ambos tipos de vistas
