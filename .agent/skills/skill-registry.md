@@ -20,6 +20,7 @@ Este documento mapea las situaciones del proyecto con los skills disponibles.
 | Testing | `pytest` | Tests en Python |
 | E2E testing | `playwright` | Tests end-to-end |
 | Commits | `GGA` | Code review automático |
+| Changelog | `changelog-maintenance` | Formato Keep a Changelog + Semver |
 
 ---
 
@@ -91,9 +92,10 @@ playwright   → E2E testing
 
 ### Utilidades
 ```
-find-skills  → Buscar skills
-skill-creator → Crear nuevos skills
-pr-review    → Revisar PRs de GitHub
+find-skills              → Buscar skills
+skill-creator            → Crear nuevos skills
+pr-review                → Revisar PRs de GitHub
+changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 ```
 
 ---
@@ -109,6 +111,7 @@ pr-review    → Revisar PRs de GitHub
 | Cambios en serializers.py | `django-drf` |
 | Tests en Python | `pytest` |
 | Tests E2E | `playwright` |
+| Antes de release/merge | `changelog-maintenance` |
 | Cambios sustanciales | `sdd-*` (ciclo completo) |
 
 ###-before cada implementación
