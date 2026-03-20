@@ -140,8 +140,62 @@ pr-review    → Revisar PRs de GitHub
 
 ---
 
+## 📝 Actualización del CHANGELOG
+
+**OBLIGATORIO** después de cada release o merge a master.
+
+### Cuándo actualizar:
+- ✅ Después de hacer merge a `master`/`main`
+- ✅ Antes de crear un tag de release
+- ✅ Cuando se completa un feature sustancial
+- ❌ NO en cada commit (solo en cambios significativos)
+
+### Formato de entrada:
+
+```markdown
+## [X.Y.Z] - YYYY-MM-DD
+
+### Added
+- Descripción del feature nuevo
+
+### Changed
+- Descripción de mejora
+
+### Fixed
+- Descripción del bug fix
+
+### Removed
+- Descripción de功能 removida
+```
+
+### Categorías válidas:
+| Categoría | Uso |
+|-----------|-----|
+| Added | Features nuevos |
+| Changed | Cambios en funcionalidad existente |
+| Deprecated | Funcionalidad que será removida |
+| Removed | Funcionalidad eliminada |
+| Fixed | Bug fixes |
+| Security | Cambios de seguridad |
+
+### Workflow completo (con changelog):
+
+```
+1. sdd-apply → Implementar cambios
+2. git add . && git commit -m "feat: nueva funcionalidad"
+3. GGA revisa automáticamente (pre-commit hook)
+4. git push origin <rama>
+5. Merge a master/main
+6. ACTUALIZAR CHANGELOG.md ← OBLIGATORIO
+7. git add CHANGELOG.md && git commit -m "docs: update changelog"
+8. Crear tag si es release: git tag v1.0.0
+```
+
+---
+
 ## 🔗 Recursos
 
 - Skills: `/home/ernesg93/.claude/skills/`, `/home/ernesg93/.config/opencode/skills/`
 - GGA: Pre-commit hook activo, revisa .py, .html, .css, .js
 - Docs: AGENTS.md
+- Changelog: CHANGELOG.md
