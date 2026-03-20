@@ -181,6 +181,7 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 | Fixed | Bug fixes |
 | Security | Cambios de seguridad |
 
+### Workflow completo (con changelog y tags):
 ### Workflow completo (con changelog):
 
 ```
