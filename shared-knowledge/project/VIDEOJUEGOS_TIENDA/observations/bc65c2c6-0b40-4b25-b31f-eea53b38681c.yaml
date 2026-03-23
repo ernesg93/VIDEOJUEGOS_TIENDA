@@ -1,8 +1,0 @@
-content:
-  Learned: The basic file-based approach works for storing structured observations.
-  What: This is a test observation to demonstrate the shared-knowledge functionality.
-  Where: ./shared-knowledge/project/VIDEOJUEGOS_TIENDA/observations/
-  Why: To verify that we can save and retrieve observations correctly.
-id: bc65c2c6-0b40-4b25-b31f-eea53b38681c
-title: Test Observation
-type: decision
