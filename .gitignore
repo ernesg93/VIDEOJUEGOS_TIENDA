@@ -44,3 +44,6 @@ db.sqlite3-journal
 
 # Logs
 *.log
+
+# Screenshots
+screenshots/
