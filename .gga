@@ -10,7 +10,7 @@ PROVIDER="claude"
 FILE_PATTERNS="*.py,*.html,*.css,*.js"
 
 # File patterns to exclude from review (comma-separated)
-EXCLUDE_PATTERNS="*.test.py,*.spec.py,*_test.py,*.pyc,__pycache__,*.migrations.*,migrations/*.py"
+EXCLUDE_PATTERNS="*.test.py,*.spec.py,*_test.py,*.pyc,__pycache__,*.migrations.*,migrations/*.py,leer.md"
 
 # File containing code review rules
 RULES_FILE="AGENTS.md"
