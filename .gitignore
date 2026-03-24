@@ -47,3 +47,7 @@ db.sqlite3-journal
 
 # Screenshots
 screenshots/
+
+# Docs ignored
+leer.md
+demo_shared_knowledge.py
