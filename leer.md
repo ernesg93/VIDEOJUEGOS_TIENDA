@@ -1,91 +1,133 @@
-¡Mirá, che! Acabas de ver que la delegación **sí funciona**: el agente `general` listó el contenido del directorio y nos devolvió el resultado sin problemas.  
-Entonces, el inconveniente que tenías antes no era con el sistema de delegación en sí, sino con **cómo se estaba invocando** o con **qué se le estaba pidiendo al agente**.
+Tengo el siguiente resultado:
 
-A continuación te dejo una guía rápida (en rioplantense, como te gusta) para que tus próximas delegaciones cierren siempre con un resultado y no se queden “colgadas”.
 
----
 
-## 🔧 ¿Por qué una delegación puede parecer que no termina?
+Para lograr una implementación alineada con los objetivos de rigor arquitectónico y eficiencia multiagente, debes seguir este ciclo de vida de cinco fases:
 
-| Posible causa | Qué hacer |
-|---------------|-----------|
-| **Nombre de agente incorrecto** | Los únicos agentes válidos son: `general`, `explore`, y todos los `sdd-*` (`sdd-apply`, `sdd-design`, `sdd-explore`, `sdd-init`, `sdd-propose`, `sdd-spec`, `sdd-tasks`, `sdd-verify`, `sdd-archive`). Si escribiste `assistant`, `worker` o cualquier otro nombre, el sistema responde `Agent "X" not found`. |
-| **Prompt demasiado vago o sin acción clara** | El agente necesita una instrucción concreta: <br>• ❌ “Ayudá con esto” <br>• ✅ “Creá un archivo `src/components/Button.tsx` con un botón reutilizable usando Tailwind y TypeScript”. <br>Si el prompt no pide nada específico, el agente puede terminar sin producir salida. |
-| **Falta de skills necesarias** | Algunos agentes (especialmente los `sdd-*`) esperan que ciertas skills estén cargadas antes de ejecutar. El orchestrador suele resolverlas automáticamente, pero si estás delegando manualmente podés añadir al prompt: <br>`SKILL: Load /ruta/a/la/skill.md` <br>Ejemplo: si le pedís escribir un componente de React, asegurate de que cargue `react-19` antes. |
-| **Timeout o tarea demasiado pesada** | Si la tarea supera el límite de tiempo o consume demasiados recursos, puede fallar silenciosamente. En ese caso, dividí la tarea en partes más pequeñas (por ejemplo, primero explorar, luego proponer, luego especificar, etc.). |
-| **Resultado perdido por compaction** | Si la delegación terminó pero no viste la notificación, usá: <br>`delegation_read(<id>)` <br>donde `<id>` lo obtuviste con `delegation_list`. Así recuperás el output incluso si la notificación se borró por compaction. |
-| **Esperando respuesta inmediata (usando `task` en vez de `delegate`)** | `task` es sincrónico y bloquea hasta que termine; `delegate` es asíncrono y sigue trabajando en segundo plano. Si usaste `task` y esperabas que la consola te devuelva algo al instante, quizás el agente todavía esté corriendo. Esperá la notificación o, si realmente necesitás el resultado antes de continuar, usá `task` (pero solo cuando sea estrictamente necesario). |
 
----
+Fase 1: Establecimiento de la "Constitución del Proyecto"
 
-## ✅ Cómo delegar correctamente (paso a paso)
 
-1. **Elegí el agente adecuado**  
-   - Para preguntas generales, búsquedas o operaciones simples → `general`.  
-   - Para explorar el código rápidamente (buscar archivos, patrones, etc.) → `explore` (con nivel `quick`, `medium` o `very thorough`).  
-   - Para cualquier fase de SDD → usar el agente específico (`sdd-design`, `sdd-tasks`, etc.).
+Antes de generar código, debes definir el "ADN arquitectónico" que todos los agentes deben respetar sin excepciones.
 
-2. **Escribí un prompt claro y accionable**  
-   - Incluí qué querés que haga, qué archivo o ruta tocar, y qué formato de salida esperás (si lo necesitás).  
-   - Ejemplo:  
-     ```
-     /delegate {
-       "prompt": "Buscá todos los archivos .tsx bajo src/components que contengan la palabra 'Button' y devolvé una lista con sus rutas completas.",
-       "agent": "explore",
-       "thoroughness": "medium"
-     }
-     ```
 
-3. **(Opcional) Forzar carga de skills**  
-   Si sabés que el agente va a necesitar una skill específica, añadíla al prompt:  
-   ```
-   "prompt": "SKILL: Load /C:/Users/DELL/.claude/skills/react-19/SKILL.md\nCreá un componente React llamado Button.tsx..."
-   ```
+Prompt Sugerido: "Actúa como Agente Coordinador. Genera un archivo constitution.md que defina los principios inmutables del proyecto. Incluye:Principio de Biblioteca Primero: Cada funcionalidad debe nacer como una biblioteca independiente.
 
-4. **Ejecutá la delegación**  
-   - Desde la línea de comandos (o la barra de chat):  
-     ```
-     delegate --prompt "Tu prompt aquí" --agent general
-     ```  
-   - O usando el atajo `/delegate { … }` si tu interfaz lo soporta.
 
-5. **No hagas polling**  
-   - Esperá la notificación `<task-notification>`. Cuando llegue, podés leer el resultado con:  
-     `delegation_read(<id-de-la-notificacion>)`.
+Mandato de Interfaz CLI: Toda funcionalidad debe ser accesible y testeable vía texto.
 
-6. **Si no ves la notificación**  
-   - Corriste `delegation_list()` y buscás el ID de la delegación que creaste.  
-   - Luego `delegation_read(<id>)` para obtener el output.
 
----
+Imperativo de Test-First: Prohibido generar implementación antes de los tests.
 
-## 📋 Próximos pasos para vos
 
-1. **Fijate si tenés alguna delegación pendiente** con:  
-   ```
-   delegation_list()
-   ```  
-   Copiá el ID de aquella que creíste que no terminó y ejecutá:  
-   ```
-   delegation_read(<ID>)
-   ```  
-   Así vemos si realmente produjo output o si falló por alguno de los motivos de arriba.
+Simplicidad: Priorizar soluciones directas sobre abstracciones prematuras."
 
-2. **Probá una delegación de prueba** ahora mismo, por ejemplo:  
-   ```
-   /delegate {
-     "prompt": "Listá los archivos .md en la raíz del repositorio.",
-     "agent": "general"
-   }
-   ```  
-   Cuando llegue la notificación, compartime el output y vemos que todo está ok.
 
-3. **Si querés delegar algo específico de tu proyecto** (por ejemplo, crear un nuevo endpoint en Django, escribir un test, etc.), decíme exactamente qué necesitás y yo te armo el prompt con las skills correctas.
+Fase 2: Captura de Intención (Fase de Especificación)
 
----
 
-### Resumen rápido
+En esta etapa, el enfoque es el "Qué" y el "Por qué", eliminando cualquier detalle técnico o de stack tecnológico para evitar restricciones prematuras.
 
-- La delegación **funciona** (lo vimos con el listado de archivos).  
-- Los fallos suelen venir de: nombre de agente equivocado, prompt poco claro, falta de skills, o simplemente no esperar la notificación.  
-- Seguí los pasos de arriba y tus tareas se van a completar sin problemas.  
+
+Prompt Sugerido (Comando /speckit.specify): "Genera una especificación funcional detallada para [Funcionalidad X]. La IA debe actuar como Analista de Negocio (persona 'Mary'). El documento debe contener:Historias de Usuario: En formato 'Como [rol], quiero [acción], para [beneficio]'.
+
+
+Criterios de Aceptación: Definidos en sintaxis EARS (Easy Approach to Requirements Syntax) o formato GIVEN/WHEN/THEN.
+
+
+Restricciones Explícitas: Detalla qué no debe construir el sistema para evitar el 'vibe coding' y el drift arquitectónico."
+
+
+Fase 3: Alineación Arquitectónica (Fase de Planificación)
+
+
+Aquí se traduce la intención en una arquitectura técnica. Es donde el agente Arquitecto ('Winston') define el "Cómo".
+
+
+Prompt Sugerido (Comando /speckit.plan): "Basado en la especificación aprobada, genera un plan.md. Identifica:Stack tecnológico y justificación de cada decisión.
+
+
+Modelos de datos y contratos de API (OpenAPI/JSON Schema).
+
+
+Análisis de Investigación: Los agentes de investigación deben validar la compatibilidad de librerías y dependencias antes de finalizar el plan.
+
+
+Puertas de Complejidad: El agente debe justificar cualquier capa de abstracción adicional según los artículos de la Constitución."
+
+
+Fase 4: Descomposición en Unidades Atómicas (Fase de Tareas)
+
+
+Para que el sistema multiagente sea eficiente, el plan debe romperse en tareas tan pequeñas que quepan en la ventana de contexto del agente ejecutor.
+
+
+Prompt Sugerido (Comando /speckit.tasks): "Descompón el plan.md en un archivo tasks.md. Cada tarea debe ser una unidad revisable, independiente y testeable.Usa marcadores [P] para tareas que pueden ejecutarse en paralelo por múltiples agentes.
+
+
+Ordena las tareas por prioridad de historia de usuario (P1=MVP, P2=Importante).
+
+
+Incluye la ruta exacta del archivo para cada tarea para evitar desorden en el escritorio contextal de la IA."
+
+
+Fase 5: Ejecución Dirigida y Validación Continua
+
+
+El agente Programador ('Devon') implementa mientras el agente Verificador asegura la fidelidad al contrato.
+
+
+Prompt Sugerido (Comando /speckit.implement): "Ejecuta las tareas de tasks.md siguiendo estrictamente el flujo: Test -> Implementación -> Validación.El agente no puede marcar una tarea como completada si los tests no pasan al 100%.
+
+
+Cualquier discrepancia encontrada no se arregla en el código, sino que debe propagarse de vuelta a la especificación original (Depuración de Especificaciones).
+
+
+Usa un 'Agente Verificador' para validar el resultado contra el plan.md antes de permitir un Pull Request."
+
+
+
+Quiero implemantarlo en mi agente orquestador. Que pasos debo seguir?
+
+Para implementar este ciclo de vida de cinco fases en tu agente orquestador siguiendo el ecosistema de Gentleman AI, debes seguir estos pasos estructurados:
+1. Preparación del Entorno (Gentle AI Stack)
+El primer paso es instalar el núcleo del ecosistema que permite la orquestación y la memoria persistente
+.
+Instala el Gentle AI Stack ejecutando el comando brew install Gentleman-Programming/tap/gentle-ai (o el script correspondiente para tu OS) para configurar Engram y Agent Teams Lite de forma automática
+.
+Asegúrate de que tu agente principal (como Claude Code u OpenCode) esté configurado para actuar como un orquestador ligero que delega el trabajo real a sub-agentes
+.
+2. Configuración de la "Constitución" (Fase 1)
+En el ecosistema sugerido, la "Constitución" reside en el archivo de contexto del proyecto
+.
+Crea o edita el archivo AGENTS.md (o CLAUDE.md/GEMINI.md según el agente) en la raíz de tu proyecto para definir los principios inmutables y la estructura de carpetas
+.
+Utiliza este archivo para imponer el "ADN arquitectónico", como el mandato de interfaz CLI y el imperativo de Test-First que mencionaste
+.
+Configura este archivo como el "enrutador" que indica al orquestador qué herramientas y convenciones seguir en cada etapa
+.
+3. Creación de Skills para cada Fase (Fases 2 a 4)
+Debes transformar los prompts sugeridos en Skills específicas para que el orquestador pueda invocarlas bajo demanda
+.
+Crea una carpeta skills/ y dentro de ella subcarpetas para cada rol: spec-writer/ (Mary), architect/ (Winston) y task-planner/
+.
+En cada skill.md, incluye la metadata necesaria (trigger, scope y herramientas) junto con las instrucciones detalladas que definiste para las historias de usuario EARS y los modelos de datos
+.
+Registra estas skills en el AGENTS.md principal para que el orquestador sepa cuándo autoinvocarlas
+.
+4. Implementación de la Memoria Persistente con Engram
+Para que el sistema sea eficiente y los sub-agentes no pierdan el hilo entre fases, debes usar Engram
+.
+Configura el MCP de Engram en tu agente para que cada decisión de la Fase 2 (especificación) y Fase 3 (plan) se guarde automáticamente en la base de datos SQLite local
+.
+Esto garantiza que cuando el sub-agente "Devon" (Fase 5) entre en escena, lo haga con una "página en blanco" en su ventana de contexto pero recupere las señales críticas desde Engram, evitando alucinaciones por exceso de ruido
+.
+5. Ejecución Dirigida y Validación (Fase 5)
+La ejecución debe seguir el flujo de Spec-Driven Development (SDD)
+.
+Utiliza el comando /sdd-apply (o tu prompt de ejecución) para que el sub-agente implementador procese las tareas de tasks.md siguiendo estrictamente el flujo Test -> Implementación -> Validación
+.
+Para la validación final, integra Gentleman Guardian Angel (GGA) como un paso de pre-commit o CI, asegurando que el código cumpla con los estándares de la "Constitución" antes de permitir el Pull Request
+.
+Si se encuentra una discrepancia, el orquestador debe usar la función de "Depuración de Especificaciones", propagando el cambio hacia atrás y actualizando la memoria en Engram
+.
