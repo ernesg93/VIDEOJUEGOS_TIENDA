@@ -8,6 +8,14 @@
       "sessions": 12,
       "memories": 11,
       "prompts": 0
+    },
+    {
+      "id": "f391965f",
+      "created_by": "DELL",
+      "created_at": "2026-03-25T20:48:05Z",
+      "sessions": 0,
+      "memories": 1,
+      "prompts": 0
     }
   ]
 }
