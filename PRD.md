@@ -1,7 +1,50 @@
 # PRD - Tienda de Videojuegos (Versión Mejorada)
 
 ## Product Requirements Document
-### Versión 1.1 - Marzo 2025 (Mejorado para claridad y priorización)
+### Versión 1.2 - Marzo 2026 (Actualizado con estado de implementación)
+
+---
+
+## Estado de Implementación Actual
+
+**Última actualización:** 25 de Marzo 2026
+
+### Fases Completadas
+
+#### ✅ Fase 1: Estructura Base (Completada - Enero 2025)
+- Proyecto Django configurado
+- Apps `home` y `catalogo` creadas
+- Templates base con Bootstrap 5.3.0
+- Sistema de theming (dark/light mode)
+- Navbar responsivo con logo
+- Footer sticky
+- Páginas estáticas (Home, Contacto)
+
+#### ✅ Fase 2.1: MVP Catálogo (Completada - Marzo 2026)
+- Modelo `Producto` con campos esenciales implementado
+- Auto-generación de slug único
+- Admin interface personalizado
+- Vista lista de productos (`lista_juegos`)
+- Template con grid responsivo
+- Management command para datos de ejemplo
+- Configuración de variables de entorno
+- 8 productos de ejemplo cargados
+
+### En Desarrollo
+
+#### 🔄 Fase 2.2: Detalle de Producto (Próxima)
+- Vista detalle de producto con slug
+- Template de detalle
+- Navegación lista → detalle
+- Campo fecha_lanzamiento
+
+### Pendientes
+
+- Fase 2.3: Descripciones y Género
+- Fase 2.4: Ofertas y Clasificación
+- Fase 3: Sistema de Usuarios
+- Fase 4: Carrito de Compras
+- Fase 5: Proceso de Pago
 
 ---
 
@@ -83,15 +126,32 @@
 ```
 
 **Definición de Done para Fase 2 (MVP Catálogo):**
-- [ ] Modelo Producto creado con campos mínimos (id, titulo, precio, stock, activo, plataforma, slug)
-- [ ] Modelo Género creado y poblado con valores iniciales (Acción, RPG, Deportes, Estrategia)
-- [ ] Vista detalle de producto accesible en `/producto/<slug:slug>/` mostrando imagen, título, precio, plataforma
-- [ ] Vista lista de productos accesible en `/catalogo/` mostrando grid de productos activos
-- [ ] Navegación básica desde lista → detalle funcionando
-- [ ] Diseño responsivo que se ve bien en móvil (<576px) y desktop
-- [ ] Al menos 3 productos de ejemplo cargados en la base de datos
-- [ ] Sin errores 500 en las vistas principales
-- [ ] Tests básicos de modelos pasando (creación, lectura, actualización)
+- [x] Modelo Producto creado con campos mínimos (id, titulo, precio, stock, activo, plataforma, slug)
+- [ ] Modelo Género creado y poblado con valores iniciales (Acción, RPG, Deportes, Estrategia) - *Pendiente Fase 2.3*
+- [ ] Vista detalle de producto accesible en `/producto/<slug:slug>/` mostrando imagen, título, precio, plataforma - *Pendiente Fase 2.2*
+- [x] Vista lista de productos accesible en `/catalogo/` mostrando grid de productos activos
+- [ ] Navegación básica desde lista → detalle funcionando - *Pendiente Fase 2.2*
+- [x] Diseño responsivo que se ve bien en móvil (<576px) y desktop
+- [x] Al menos 3 productos de ejemplo cargados en la base de datos (8 productos de ejemplo disponibles)
+- [x] Sin errores 500 en las vistas principales
+- [ ] Tests básicos de modelos pasando (creación, lectura, actualización) - *Pendiente*
+
+**Estado Actual (Fase 2.1 - Completada):**
+- ✅ Modelo Producto implementado con auto-generación de slug
+- ✅ Admin interface personalizado con list_display, list_filter, search_fields, prepopulated_fields
+- ✅ Vista lista_juegos funcional con filtrado de productos activos
+- ✅ Template catalogo/lista_juegos.html con grid responsivo
+- ✅ Management command populate_productos con 8 juegos de ejemplo
+- ✅ Configuración de variables de entorno con python-dotenv
+- ✅ Migración inicial 0001_initial.py aplicada
+- ✅ URL namespacing configurado (app_name = 'catalogo')
+- ✅ Navbar fixed-top con link funcional a Tienda
+
+**Próximos Pasos (Fase 2.2):**
+- [ ] Implementar vista detalle de producto con slug
+- [ ] Crear template para detalle de producto
+- [ ] Añadir navegación desde lista a detalle
+- [ ] Implementar campo fecha_lanzamiento en modelo
 
 ### Fase 3: Sistema de Usuarios (Ejemplo de aplicación de priorización)
 *(Mostrando cómo aplicar el mismo principio a otras fases)*
