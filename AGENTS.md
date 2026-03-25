@@ -62,3 +62,29 @@ Order imports as follows (per PEP 8):
 - Keep JavaScript minimal (use Bootstrap JS when possible)
 - Use vanilla JavaScript or Bootstrap's built-in components
 - Include proper error handling
+
+---
+
+## Skills por Fase del Proyecto
+
+Cargar estas skills según la fase en la que estés trabajando:
+
+| Fase | Skills a cargar | Para qué |
+|------|-----------------|----------|
+| **Fase 1** (Fundamentos) | django-patterns | Estructura del proyecto |
+| **Fase 2** (Catálogo) | django-patterns | Modelos, vistas, templates |
+| **Fase 3** (Carrito/Checkout) | django-tdd, django-patterns | Testing TDD + implementación |
+| **Fase 4** (Usuarios) | django-tdd, django-patterns | Auth, registros, testing |
+| **Testing general** | python-testing-patterns, pytest | Mejores prácticas de testing |
+| **Browser automation** | agent-browser | E2E testing, scraping |
+
+### Cómo cargar una skill
+
+Cuando necesites usar una skill, indicámelo en tu prompt:
+```
+SKILL: Load django-tdd before starting
+```
+
+### Skills globales disponibles
+
+Para ver todas: `npx skills list -g`
