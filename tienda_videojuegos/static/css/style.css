@@ -1,4 +1,13 @@
+/* === Variables CSS === */
+:root {
+    --navbar-height: 70px; /* Adjusted for theme toggle button and padding */
+}
+
 /* === Encabezado (modo claro) === */
+body {
+    padding-top: var(--navbar-height); /* Compensar navbar fixed-top */
+}
+
 .site-header {
     background-color: #343a40;
     border-bottom-color: #495057 !important;

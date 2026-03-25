@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- lista_juegos.html -->
+{% block title %}Catálogo - PC GAMING{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-body">Catálogo de Videojuegos</h1>
+    
+    {% if lista_juegos %}
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        {% for juego in lista_juegos %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{% static 'img/logo.png'}" class="card-img-top" alt="Imagen genérica">
+                <div class="card-body">
+                    <h5 class="card-title text-body">{{ juego.titulo }}</h5>
+                    <p class="card-text text-body">
+                        <strong>Precio:</strong> ${{ juego.precio }}<br>
+                        <strong>Plataforma:</strong> {{ juego.get_plataforma_display }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info mt-3" role="alert">
+        <i class="fa-solid fa-info-circle me-2"></i>
+        <strong>No hay productos disponibles en este momento.</strong>
+        <p class="mb-0 mt-2">Por favor, vuelve más tarde para ver nuestro catálogo actualizado.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
