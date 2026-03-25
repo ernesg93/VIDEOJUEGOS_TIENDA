@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ producto.titulo }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'catalogo:lista_productos' %}">Catálogo</a></li>
+            <li class="breadcrumb-item active">{{ producto.titulo }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Imagen del producto -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="bg-secondary bg-opacity-25 d-flex align-items-center justify-content-center" 
+                     style="min-height: 400px;">
+                    <i class="fas fa-gamepad fa-6x text-muted"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información del producto -->
+        <div class="col-md-6">
+            <!-- Plataforma y Género -->
+            <div class="mb-3">
+                <span class="badge bg-secondary fs-6">{{ producto.get_plataforma_display }}</span>
+                {% if producto.genero %}
+                <span class="badge bg-info fs-6">{{ producto.genero.nombre }}</span>
+                {% endif %}
+            </div>
+
+            <!-- Título -->
+            <h1 class="mb-3">{{ producto.titulo }}</h1>
+
+            <!-- Precio -->
+            <div class="mb-4">
+                {% if producto.precio_oferta %}
+                <span class="text-decoration-line-through text-muted fs-4">${{ producto.precio }}</span>
+                <span class="text-danger fs-2 fw-bold">${{ producto.precio_oferta }}</span>
+                <span class="badge bg-danger ms-2">Oferta</span>
+                {% else %}
+                <span class="text-primary fs-2 fw-bold">${{ producto.precio }}</span>
+                {% endif %}
+            </div>
+
+            <!-- Stock -->
+            <div class="mb-4">
+                {% if producto.stock > 0 %}
+                <span class="text-success">
+                    <i class="fas fa-check-circle"></i> 
+                    {{ producto.stock }} unidades disponibles
+                </span>
+                {% else %}
+                <span class="text-danger">
+                    <i class="fas fa-times-circle"></i> 
+                    Sin stock
+                </span>
+                {% endif %}
+            </div>
+
+            <!-- Botón de compra -->
+            <div class="mb-4">
+                {% if producto.stock > 0 %}
+                <button class="btn btn-primary btn-lg">
+                    <i class="fas fa-cart-plus"></i> Añadir al Carrito
+                </button>
+                {% else %}
+                <button class="btn btn-secondary btn-lg" disabled>
+                    No disponible
+                </button>
+                {% endif %}
+            </div>
+
+            <!-- Descripción -->
+            {% if producto.descripcion_larga %}
+            <div class="mb-4">
+                <h5>Descripción</h5>
+                <p class="text-muted">{{ producto.descripcion_larga|linebreaks }}</p>
+            </div>
+            {% elif producto.descripcion_corta %}
+            <div class="mb-4">
+                <h5>Descripción</h5>
+                <p class="text-muted">{{ producto.descripcion_corta }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Información adicional -->
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h6 class="card-title">Detalles del producto</h6>
+                    <ul class="list-unstyled mb-0">
+                        {% if producto.fecha_lanzamiento %}
+                        <li><strong>Fecha de lanzamiento:</strong> {{ producto.fecha_lanzamiento }}</li>
+                        {% endif %}
+                        {% if producto.edad_minima %}
+                        <li><strong>Edad mínima:</strong> {{ producto.edad_minima }} años</li>
+                        {% endif %}
+                        <li><strong>Plataforma:</strong> {{ producto.get_plataforma_display }}</li>
+                        {% if producto.genero %}
+                        <li><strong>Género:</strong> {{ producto.genero.nombre }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Productos relacionados -->
+    {% if productos_relacionados %}
+    <div class="mt-5">
+        <h3 class="mb-4">Productos Relacionados</h3>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for relacionado in productos_relacionados %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="bg-secondary bg-opacity-25 d-flex align-items-center justify-content-center" 
+                         style="height: 150px;">
+                        <i class="fas fa-gamepad fa-3x text-muted"></i>
+                    </div>
+                    <div class="card-body">
+                        <span class="badge bg-secondary small">{{ relacionado.get_plataforma_display }}</span>
+                        <h6 class="card-title mt-2">{{ relacionado.titulo }}</h6>
+                        <p class="card-text small text-muted">
+                            {% if relacionado.precio_oferta %}
+                            <span class="text-decoration-line-through">${{ relacionado.precio }}</span>
+                            <span class="text-danger"> ${{ relacionado.precio_oferta }}</span>
+                            {% else %}
+                            <span class="text-primary fw-bold">${{ relacionado.precio }}</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{% url 'catalogo:detalle_producto' relacionado.slug %}" 
+                           class="btn btn-sm btn-outline-primary w-100">
+                            Ver Detalles
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
