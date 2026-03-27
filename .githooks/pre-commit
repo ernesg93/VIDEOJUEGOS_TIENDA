@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Gentleman Guardian Angel - Code Review
+gga run || exit 1

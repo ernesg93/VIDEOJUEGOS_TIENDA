@@ -7,7 +7,7 @@
 
 ## Estado de Implementación Actual
 
-**Última actualización:** 25 de Marzo 2026
+**Última actualización:** 27 de Marzo 2026
 
 ### Fases Completadas
 
@@ -62,7 +62,7 @@
 | Categoría | Campo | Tipo | Requerido | Descripción | Fase de implementación |
 |-----------|-------|------|-----------|-------------|------------------------|
 | **Identificación** | `id` | AutoField | Sí | Identificador único del producto (PK) | Fase 2.1 |
-| | `slug` | SlugField | Sí | URL amigable (ej: zelda-breath-of-wild) | Fase 2.2 |
+| | `slug` | SlugField | Sí | URL amigable (ej: zelda-breath-of-wild) | Fase 2.1 |
 | **Contenido Esencial** | `titulo` | CharField(200) | Sí | Nombre completo del videojuego | Fase 2.1 |
 | | `descripcion_corta` | CharField(300) | No | Descripción breve para listados | Fase 2.3 |
 | | `descripcion_larga` | TextField | No | Descripción detallada del juego | Fase 2.3 |
@@ -70,7 +70,7 @@
 | | `precio_oferta` | DecimalField(8,2) | No | Precio con descuento aplicado | Fase 2.4 |
 | | `stock` | IntegerField | Sí | Cantidad disponible en inventario | Fase 2.1 |
 | | `activo` | BooleanField | Sí | Visible y disponible para compra | Fase 2.1 |
-| **Clasificación** | `plataforma` | CharField(20) | Sí | Plataforma objetivo (PC, PS5, XBOX, SWITCH) | Fase 2.2 |
+| **Clasificación** | `plataforma` | CharField(20) | Sí | Plataforma objetivo (PC, PS5, XBOX, SWITCH) | Fase 2.1 |
 | | `genero` | ForeignKey(Género) | No | Categoría de juego (Acción, RPG, Deportes, etc.) | Fase 2.3 |
 | | `edad_minima` | IntegerField | No | Edad mínima recomendada (ej: 12, 16, 18) | Fase 2.4 |
 | **Metadatos y Auditoría** | `fecha_lanzamiento` | DateField | No | Fecha oficial de lanzamiento | Fase 2.2 |
@@ -79,7 +79,7 @@
 
 > 💡 **Notas de implementación:**
 > - **Fase 2.1 (MVP Catálogo):** Solo campos marcados como "Fase 2.1" son necesarios para lanzar una versión básica funcional
-> - **Fase 2.2:** Añadimos experiencia de usuario (slug, plataforma, fecha de lanzamiento)
+> - **Fase 2.2:** Completamos UX del catálogo (detalle por slug) y agregamos `fecha_lanzamiento`
 > - **Fase 2.3:** Enriquecemos contenido (descripciones, género)  
 > - **Fase 2.4:** Funcionalidades avanzadas de comercio y clasificación
 > - Todos los campos mantienen sus tipos y restricciones originales, solo se implementan progresivamente
@@ -110,7 +110,7 @@
 |-----------|--------|------------|-------------|-------------------|-------------------|------------------------------|
 | **Must** | M2.1 | Modelos Producto y Género | Ninguna | Alta (base de todo) | Baja | Crear migraciones y ejecutar |
 | **Must** | M2.2 | Vista Detalle de Producto | M2.1 | Alta (impacto directo en conversión) | Media | Template con imagen, título, precio |
-| **Should** | S2.1 | Vista Lista de Productos (sin filtros) | M2.1, M2.2 | Media (descubrimiento de productos) | Baja-Media | Grid simple de productos activos |
+| **Should** | S2.1 | Vista Lista de Productos (sin filtros) | M2.1 | Media (descubrimiento de productos) | Baja-Media | Grid simple de productos activos |
 | **Could** | C2.1 | Filtros básicos por plataforma | S2.1 | Baja (mejora de experiencia) | Media | Dropdown de plataformas en lista |
 | **Could** | C2.2 | CRUD completo de admin para Productos | M2.1 | Baja (solo para administradores) | Baja | Usar Django admin o vistas custom |
 | **Won't** | W2.1 | Sistema de reseñas y calificaciones | M2.2 | Baja (valor diferido) | Alta | Dejar para Fase 3 o 4 |
@@ -119,10 +119,10 @@
 **Flujo de implementación recomendado para Fase 2:**
 ```
 1. M2.1 → Crear modelos Producto y Género (migraciones)
-2. M2.2 → Implementar vista y template de detalle de producto
-3. S2.1 → Crear vista lista de productos (grid básico)
-2. C2.1 → Añadir filtros simples por plataforma (opcional, depende de tiempo)
-4. C2.2 → Implementar CRUD de admin (puede ser Django admin out-of-the-box)
+2. S2.1 → Crear vista lista de productos (grid básico)
+3. M2.2 → Implementar vista y template de detalle de producto
+4. C2.1 → Añadir filtros simples por plataforma (opcional, depende de tiempo)
+5. C2.2 → Implementar CRUD de admin (puede ser Django admin out-of-the-box)
 ```
 
 **Definición de Done para Fase 2 (MVP Catálogo):**

@@ -49,7 +49,7 @@ Esto ejecuta:
 # Sin SDD, implementar directo con GGA
 git add .
 git commit -m "fix: description"
-# GGA revisará automáticamente
+# GGA revisará automáticamente (si el hook está instalado: `gga install`)
 ```
 
 ### 3. Investigar/Explorar (ej: cómo funciona el auth de Django)
@@ -137,7 +137,7 @@ npx skills add <repo-url-o-owner/repo> --skill <skill-name> -g -y
 
 ### Commits
 - Usar conventional commits: `feat:`, `fix:`, `chore:`, `docs:`
-- GGA revisa automáticamente con pre-commit hook
+- GGA revisa automáticamente con pre-commit hook (instalar con `gga install`)
 
 ### Código
 - 4 espacios, max 120 chars
@@ -210,6 +210,6 @@ npx skills add <repo-url-o-owner/repo> --skill <skill-name> -g -y
 ## 🔗 Recursos
 
 - Skills: `/home/ernesg93/.claude/skills/`, `/home/ernesg93/.config/opencode/skills/`
-- GGA: Pre-commit hook activo, revisa .py, .html, .css, .js
+- GGA: Pre-commit hook (instalar con `gga install`), revisa .py, .html, .css, .js
 - Docs: AGENTS.md
 - Changelog: CHANGELOG.md

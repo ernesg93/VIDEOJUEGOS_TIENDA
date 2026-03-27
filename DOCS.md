@@ -552,7 +552,7 @@ Install with `engram setup opencode` — this copies the plugin to `~/.config/op
 A thin TypeScript adapter that:
 
 1. **Auto-starts** the engram binary if not running
-2. **Auto-imports** git-synced memories from `.engram/memories.json` if present in the project
+2. **Auto-imports** git-synced memories from `.engram/manifest.json` + `.engram/chunks/` if present in the project
 3. **Captures events**: `session.created`, `session.idle`, `session.deleted`, `message.updated`
 4. **Tracks tool count**: Counts tool calls per session (for session end stats), but does NOT persist raw tool observations
 5. **Captures user prompts**: From `message.updated` events (>10 chars)

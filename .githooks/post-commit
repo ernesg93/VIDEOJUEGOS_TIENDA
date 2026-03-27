@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Auto-sync Engram memories into the repo after each commit.
+#
+# Behavior:
+# - Exports a new sync chunk (if any) into `.engram/`.
+# - Creates a separate commit (default: "chore: sync engram memories") so code commits stay clean.
+#
+# Opt-out:
+#   ENGRAM_AUTO_SYNC=0
+
+if [ "${ENGRAM_AUTO_SYNC:-1}" != "1" ]; then
+  exit 0
+fi
+
+if ! command -v engram >/dev/null 2>&1; then
+  exit 0
+fi
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [ -z "$ROOT" ]; then
+  exit 0
+fi
+
+cd "$ROOT"
+
+DEFAULT_MSG="chore: sync engram memories"
+SYNC_MSG="${ENGRAM_SYNC_COMMIT_MESSAGE:-$DEFAULT_MSG}"
+
+LAST_MSG="$(git log -1 --pretty=%s 2>/dev/null || true)"
+if [ "$LAST_MSG" = "$DEFAULT_MSG" ] || [ "$LAST_MSG" = "$SYNC_MSG" ]; then
+  exit 0
+fi
+
+# Do not block the user's commit if sync fails.
+engram sync --project VIDEOJUEGOS_TIENDA >/dev/null 2>&1 || exit 0
+
+if [ -z "$(git status --porcelain -- .engram)" ]; then
+  exit 0
+fi
+
+git add .engram/manifest.json .engram/chunks/*.jsonl.gz 2>/dev/null || true
+
+if git diff --cached --quiet -- .engram; then
+  exit 0
+fi
+
+git commit -m "$SYNC_MSG"
