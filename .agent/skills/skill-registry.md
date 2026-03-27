@@ -19,6 +19,7 @@ Este documento mapea las situaciones del proyecto con los skills disponibles.
 | Revisar código | `django-drf` | Patrones Django, convenciones |
 | Testing | `pytest` | Tests en Python |
 | E2E testing | `playwright` | Tests end-to-end |
+| Browser automation | `agent-browser` | Automatizacion de navegador via CLI (Vercel agent-browser) |
 | Commits | `GGA` | Code review automático |
 | Changelog | `changelog-maintenance` | Formato Keep a Changelog + Semver |
 
@@ -98,6 +99,14 @@ pr-review                → Revisar PRs de GitHub
 changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 ```
 
+### find-skills (metahabilidad)
+
+```bash
+# Buscar e instalar skills del ecosistema
+npx skills find <query>
+npx skills add <repo-url-o-owner/repo> --skill <skill-name> -g -y
+```
+
 ---
 
 ## 🎯 Reglas de Carga de Skills
@@ -111,6 +120,7 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 | Cambios en serializers.py | `django-drf` |
 | Tests en Python | `pytest` |
 | Tests E2E | `playwright` |
+| Browser automation / smoke E2E | `agent-browser` |
 | Antes de release/merge | `changelog-maintenance` |
 | Cambios sustanciales | `sdd-*` (ciclo completo) |
 
