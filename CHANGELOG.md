@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.0] - 2026-03-24
+## [1.1.0] - 2026-03-24
 
 ### Added
 
@@ -77,6 +77,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CSRF protection habilitado en Django
 - ALLOWED_HOSTS configurado para desarrollo local
 
-[Unreleased]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.0.0...HEAD
-[2.0.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.0.0...v2.0.0
+[Unreleased]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/releases/tag/v1.0.0
