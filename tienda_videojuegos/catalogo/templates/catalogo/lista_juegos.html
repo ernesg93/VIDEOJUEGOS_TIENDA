@@ -24,6 +24,40 @@
         </div>
         {% endfor %}
     </div>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+    <nav class="mt-4" aria-label="Paginacion del catalogo">
+        <ul class="pagination justify-content-center flex-wrap gap-1">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">Primera</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Pagina anterior">
+                    Anterior
+                </a>
+            </li>
+            {% endif %}
+
+            {% for page_number in visible_pages %}
+            <li class="page-item {% if page_number == page_obj.number %}active{% endif %}">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Pagina siguiente">
+                    Siguiente
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Ultima</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
     {% else %}
     <div class="alert alert-info mt-3" role="alert">
         <i class="fa-solid fa-info-circle me-2"></i>
