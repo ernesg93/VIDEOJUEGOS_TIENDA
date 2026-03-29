@@ -110,6 +110,10 @@ body {
 }
 
 /* === MODO OSCURO: tono mas oscuro para que se distinga del contenido === */
+[data-bs-theme="dark"] body {
+    background-color: #495057 !important;
+}
+
 [data-bs-theme="dark"] .site-header {
     background-color: #1e2124;
     border-bottom-color: #2c3034 !important;
