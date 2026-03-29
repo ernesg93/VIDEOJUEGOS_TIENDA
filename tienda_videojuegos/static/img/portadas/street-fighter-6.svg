@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff7b1f"/>
+      <stop offset="100%" stop-color="#27212d"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#bg)"/>
+  <path d="M70 610 C160 470 300 470 520 260" stroke="#1a1620" stroke-width="34" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <text x="56" y="145" fill="#fff4de" font-family="Arial Black, sans-serif" font-size="60">STREET</text>
+  <text x="56" y="210" fill="#fff4de" font-family="Arial Black, sans-serif" font-size="60">FIGHTER</text>
+  <text x="438" y="210" fill="#1a1620" font-family="Arial Black, sans-serif" font-size="78">6</text>
+  <text x="58" y="820" fill="#fff4de" font-family="Verdana, sans-serif" font-size="26" letter-spacing="6">PC EDITION</text>
+</svg>
