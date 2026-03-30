@@ -56,6 +56,14 @@
       "sessions": 1,
       "memories": 1,
       "prompts": 7
+    },
+    {
+      "id": "9305c6c9",
+      "created_by": "R2D2",
+      "created_at": "2026-03-30T03:03:38Z",
+      "sessions": 0,
+      "memories": 2,
+      "prompts": 1
     }
   ]
 }
