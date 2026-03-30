@@ -7,7 +7,7 @@
 
 ## Estado de Implementación Actual
 
-**Última actualización:** 27 de Marzo 2026
+**Última actualización:** 29 de Marzo 2026
 
 ### Fases Completadas
 
@@ -28,15 +28,22 @@
 - Template con grid responsivo
 - Management command para datos de ejemplo
 - Configuración de variables de entorno
-- 8 productos de ejemplo cargados
+- Seed ampliado con multiples productos de ejemplo
+
+#### ✅ Fase 2.2: Detalle de Producto (Completada - Marzo 2026)
+- Vista detalle de producto con slug
+- Template de detalle
+- Navegación lista -> detalle
+- Buscador por texto libre con resultados paginados
+- Paginación del catálogo
+- Portadas dinámicas por slug con fallback
 
 ### En Desarrollo
 
-#### 🔄 Fase 2.2: Detalle de Producto (Próxima)
-- Vista detalle de producto con slug
-- Template de detalle
-- Navegación lista → detalle
+#### 🔄 Fase 2.3: Enriquecimiento del Producto (Próxima)
 - Campo fecha_lanzamiento
+- Descripciones
+- Genero
 
 ### Pendientes
 
@@ -79,7 +86,7 @@
 
 > 💡 **Notas de implementación:**
 > - **Fase 2.1 (MVP Catálogo):** Solo campos marcados como "Fase 2.1" son necesarios para lanzar una versión básica funcional
-> - **Fase 2.2:** Completamos UX del catálogo (detalle por slug) y agregamos `fecha_lanzamiento`
+> - **Fase 2.2:** Completamos UX del catálogo (detalle por slug, paginacion y buscador)
 > - **Fase 2.3:** Enriquecemos contenido (descripciones, género)  
 > - **Fase 2.4:** Funcionalidades avanzadas de comercio y clasificación
 > - Todos los campos mantienen sus tipos y restricciones originales, solo se implementan progresivamente
@@ -128,30 +135,31 @@
 **Definición de Done para Fase 2 (MVP Catálogo):**
 - [x] Modelo Producto creado con campos mínimos (id, titulo, precio, stock, activo, plataforma, slug)
 - [ ] Modelo Género creado y poblado con valores iniciales (Acción, RPG, Deportes, Estrategia) - *Pendiente Fase 2.3*
-- [ ] Vista detalle de producto accesible en `/producto/<slug:slug>/` mostrando imagen, título, precio, plataforma - *Pendiente Fase 2.2*
+- [x] Vista detalle de producto accesible en `/catalogo/<slug:slug>/` mostrando portada, título, precio, plataforma y stock
 - [x] Vista lista de productos accesible en `/catalogo/` mostrando grid de productos activos
-- [ ] Navegación básica desde lista → detalle funcionando - *Pendiente Fase 2.2*
+- [x] Navegación básica desde lista → detalle funcionando
 - [x] Diseño responsivo que se ve bien en móvil (<576px) y desktop
-- [x] Al menos 3 productos de ejemplo cargados en la base de datos (8 productos de ejemplo disponibles)
+- [x] Al menos 3 productos de ejemplo cargados en la base de datos (seed ampliado con multiples juegos)
 - [x] Sin errores 500 en las vistas principales
 - [ ] Tests básicos de modelos pasando (creación, lectura, actualización) - *Pendiente*
 
-**Estado Actual (Fase 2.1 - Completada):**
+**Estado Actual (Fase 2.1 y 2.2 - Completadas):**
 - ✅ Modelo Producto implementado con auto-generación de slug
 - ✅ Admin interface personalizado con list_display, list_filter, search_fields, prepopulated_fields
 - ✅ Vista lista_juegos funcional con filtrado de productos activos
-- ✅ Template catalogo/lista_juegos.html con grid responsivo
-- ✅ Management command populate_productos con 8 juegos de ejemplo
+- ✅ Template `catalogo/lista_juegos.html` con grid responsivo y paginación
+- ✅ Vista `detalle_juego` accesible por slug y template `catalogo/detalle_juego.html`
+- ✅ App `buscador` con búsqueda por texto libre y resultados paginados
+- ✅ Management command `populate_productos` con seed ampliado
 - ✅ Configuración de variables de entorno con python-dotenv
 - ✅ Migración inicial 0001_initial.py aplicada
 - ✅ URL namespacing configurado (app_name = 'catalogo')
-- ✅ Navbar fixed-top con link funcional a Tienda
+- ✅ Navbar fixed-top con link funcional a Catalogo
 
-**Próximos Pasos (Fase 2.2):**
-- [ ] Implementar vista detalle de producto con slug
-- [ ] Crear template para detalle de producto
-- [ ] Añadir navegación desde lista a detalle
-- [ ] Implementar campo fecha_lanzamiento en modelo
+**Próximos Pasos (Fase 2.3):**
+- [ ] Implementar campo `fecha_lanzamiento` en el modelo
+- [ ] Agregar descripciones corta/larga
+- [ ] Incorporar genero y filtros mas ricos
 
 ### Fase 3: Sistema de Usuarios (Ejemplo de aplicación de priorización)
 *(Mostrando cómo aplicar el mismo principio a otras fases)*

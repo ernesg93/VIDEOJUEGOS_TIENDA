@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- App `buscador` con resultados en `/buscador/`
+- Búsqueda por texto libre que interpreta nombre de juego, plataforma o combinaciones simples
+- Vista de detalle por slug en `/catalogo/<slug>/`
+- Template `catalogo/detalle_juego.html` con portada, precio, plataforma y stock
+- Portadas dinámicas por slug con fallback a `default.png`
+- Paginación en catálogo y buscador (6 productos por página)
+- Más juegos y portadas de ejemplo en `populate_productos`
+
+### Changed
+
+- El header ahora envía búsquedas reales al buscador del proyecto
+- Las cards de catálogo y buscador enlazan al detalle del producto
+- El provider por defecto de GGA pasó a `opencode`
+
+### Added
+
 - **Phase 2.1 MVP - Catálogo de Productos**
   - Modelo `Producto` con campos esenciales (titulo, precio, stock, activo, plataforma, slug)
   - Auto-generación de slug único desde el título del producto

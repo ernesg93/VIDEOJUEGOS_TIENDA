@@ -2,7 +2,8 @@
 
 Tienda de videojuegos construida con Django (templates + Bootstrap). Este repo incluye:
 
-- Catalogo (Fase 2.1) funcionando: modelo `Producto`, listado `/catalogo/`, admin y comando de carga de datos.
+- Catalogo funcionando: modelo `Producto`, listado `/catalogo/`, detalle por slug, admin y comando de carga de datos.
+- Buscador funcionando: `/buscador/` con busqueda por texto libre (nombre, plataforma o combinacion simple como `zelda switch`).
 - Stack de agentes (Gentle): GGA (code review en pre-commit), Engram (memoria), skills del proyecto.
 
 ## Estado del proyecto
@@ -46,6 +47,8 @@ URLs utiles:
 
 - App: `http://127.0.0.1:8000/`
 - Catalogo: `http://127.0.0.1:8000/catalogo/`
+- Buscador: `http://127.0.0.1:8000/buscador/?q=zelda`
+- Detalle ejemplo: `http://127.0.0.1:8000/catalogo/the-legend-of-zelda-breath-of-the-wild/`
 - Admin: `http://127.0.0.1:8000/admin/`
 
 ## Setup rapido (macOS/Linux)
@@ -65,9 +68,17 @@ python tienda_videojuegos/manage.py runserver
 - `tienda_videojuegos/`:
   - `manage.py`
   - `tienda_videojuegos/settings.py` (carga `.env` via `python-dotenv`)
-  - Apps: `home/`, `catalogo/`
+  - Apps: `home/`, `catalogo/`, `buscador/`
 - `.agent/skills/`: skills y registry del proyecto
 - `.engram/`: sync de memoria (manifest + chunks)
+
+## Funcionalidades actuales
+
+- Catalogo paginado: 6 productos por pagina con `Primera`, `Anterior`, paginas visibles, `Siguiente`, `Ultima`.
+- Portadas por slug desde `static/img/portadas/` con fallback a `default.png`.
+- Vista de detalle por slug para cada juego.
+- Buscador por texto libre que interpreta nombre de juego, plataforma o ambos.
+- Seed de productos ampliado mediante `populate_productos`.
 
 ## Workflow de calidad (GGA)
 
