@@ -19,6 +19,7 @@ Este documento mapea las situaciones del proyecto con los skills disponibles.
 | Revisar código | `django-drf` | Patrones Django, convenciones |
 | Testing | `pytest` | Tests en Python |
 | E2E testing | `playwright` | Tests end-to-end |
+| Browser automation | `agent-browser` | Automatizacion de navegador via CLI (Vercel agent-browser) |
 | Commits | `GGA` | Code review automático |
 | Changelog | `changelog-maintenance` | Formato Keep a Changelog + Semver |
 
@@ -48,7 +49,7 @@ Esto ejecuta:
 # Sin SDD, implementar directo con GGA
 git add .
 git commit -m "fix: description"
-# GGA revisará automáticamente
+# GGA revisará automáticamente (si el hook está instalado: `gga install`)
 ```
 
 ### 3. Investigar/Explorar (ej: cómo funciona el auth de Django)
@@ -98,6 +99,14 @@ pr-review                → Revisar PRs de GitHub
 changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 ```
 
+### find-skills (metahabilidad)
+
+```bash
+# Buscar e instalar skills del ecosistema
+npx skills find <query>
+npx skills add <repo-url-o-owner/repo> --skill <skill-name> -g -y
+```
+
 ---
 
 ## 🎯 Reglas de Carga de Skills
@@ -111,6 +120,7 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 | Cambios en serializers.py | `django-drf` |
 | Tests en Python | `pytest` |
 | Tests E2E | `playwright` |
+| Browser automation / smoke E2E | `agent-browser` |
 | Antes de release/merge | `changelog-maintenance` |
 | Cambios sustanciales | `sdd-*` (ciclo completo) |
 
@@ -127,7 +137,7 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 
 ### Commits
 - Usar conventional commits: `feat:`, `fix:`, `chore:`, `docs:`
-- GGA revisa automáticamente con pre-commit hook
+- GGA revisa automáticamente con pre-commit hook (instalar con `gga install`)
 
 ### Código
 - 4 espacios, max 120 chars
@@ -168,7 +178,7 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 - Descripción del bug fix
 
 ### Removed
-- Descripción de功能 removida
+- Descripción de funcionalidad removida
 ```
 
 ### Categorías válidas:
@@ -181,7 +191,6 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 | Fixed | Bug fixes |
 | Security | Cambios de seguridad |
 
-### Workflow completo (con changelog y tags):
 ### Workflow completo (con changelog):
 
 ```
@@ -198,8 +207,7 @@ changelog-maintenance    → Mantenimiento de CHANGELOG con Semver
 ---
 
 ## 🔗 Recursos
-
 - Skills: `/home/ernesg93/.claude/skills/`, `/home/ernesg93/.config/opencode/skills/`
-- GGA: Pre-commit hook activo, revisa .py, .html, .css, .js
+- GGA: Pre-commit hook (instalar con `gga install`), revisa .py, .html, .css, .js
 - Docs: AGENTS.md
 - Changelog: CHANGELOG.md

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b93122"/>
+      <stop offset="100%" stop-color="#2a0c08"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#bg)"/>
+  <circle cx="420" cy="180" r="74" fill="#f7c76b" opacity="0.9"/>
+  <path d="M0 680 C150 620 290 760 600 590 L600 900 L0 900 Z" fill="#170a09" opacity="0.85"/>
+  <text x="56" y="135" fill="#fff1dd" font-family="Arial Black, sans-serif" font-size="60">RED DEAD</text>
+  <text x="56" y="205" fill="#fff1dd" font-family="Arial Black, sans-serif" font-size="60">REDEMPTION</text>
+  <text x="455" y="205" fill="#f7c76b" font-family="Arial Black, sans-serif" font-size="76">2</text>
+  <text x="58" y="820" fill="#fff1dd" font-family="Verdana, sans-serif" font-size="26" letter-spacing="6">PC EDITION</text>
+</svg>

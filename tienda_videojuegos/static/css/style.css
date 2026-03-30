@@ -1,0 +1,145 @@
+/* === Variables CSS === */
+:root {
+    --navbar-height: 70px; /* Adjusted for theme toggle button and padding */
+}
+
+/* === Encabezado (modo claro) === */
+body {
+    padding-top: var(--navbar-height); /* Compensar navbar fixed-top */
+}
+
+.site-header {
+    background-color: #343a40;
+    border-bottom-color: #495057 !important;
+}
+
+.site-header .fa-solid {
+    font-size: 1rem;
+}
+
+.site-header .nav-link {
+    white-space: nowrap;
+    color: #dee2e6;
+    font-size: 0.9rem;
+}
+
+.site-header .nav-link .fa-solid {
+    font-size: inherit;
+}
+
+.site-header .nav-link:hover {
+    color: #fff;
+}
+
+.site-header .nav-link.active {
+    color: #fff;
+    font-weight: 700;
+}
+
+.site-header .nav-link.active .fa-solid {
+    color: #7cc0ff;
+}
+
+.site-header .btn-outline-secondary {
+    color: #dee2e6;
+    border-color: #6c757d;
+}
+
+.brand-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.site-header .form-control {
+    background-color: #495057;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.site-header .form-control::placeholder {
+    color: #adb5bd;
+}
+
+.site-header .btn-outline-primary {
+    color: #dee2e6;
+    border-color: #6c757d;
+}
+
+.site-header .btn-outline-primary:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* === Footer (modo claro) === */
+.site-footer {
+    background-color: #343a40;
+    border-top: 1px solid #495057;
+    padding: 2rem 0 0;
+    color: #dee2e6;
+}
+
+.site-footer .fa-solid {
+    font-size: 1rem;
+}
+
+.site-footer h5 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #fff;
+}
+
+.site-footer p {
+    color: #dee2e6;
+}
+
+.site-footer li {
+    color: #dee2e6;
+    white-space: nowrap;
+}
+
+.footer-link {
+    color: #adb5bd;
+    text-decoration: none;
+    display: block;
+    padding: 0.2rem 0;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+}
+
+.footer-link:hover {
+    color: #fff;
+}
+
+.footer-copyright {
+    background-color: #2c3034;
+    border-top: 1px solid #495057;
+}
+
+/* === MODO OSCURO: tono mas oscuro para que se distinga del contenido === */
+[data-bs-theme="dark"] body {
+    background-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .site-header {
+    background-color: #1e2124;
+    border-bottom-color: #2c3034 !important;
+}
+
+[data-bs-theme="dark"] .site-header .form-control {
+    background-color: #212529;
+    border-color: #2c3034;
+}
+
+
+[data-bs-theme="dark"] .site-footer {
+    background-color: #1e2124;
+    border-top-color: #2c3034;
+}
+
+[data-bs-theme="dark"] .footer-copyright {
+    background-color: #151719;
+    border-top-color: #2c3034;
+}

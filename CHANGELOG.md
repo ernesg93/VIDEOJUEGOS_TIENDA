@@ -7,42 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.1.0] - 2026-03-24
-
 ### Added
 
-- **Fase 2 - Catálogo Completo**
-  - Modelo `Producto` con todos los campos (título, precio, stock, plataforma, género, etc.)
-  - Modelo `Género` para categorización de juegos
-  - Vista `lista_productos` con grid de productos activos
-  - Vista `detalle_producto` con información completa
-  - Filtros por plataforma y género
-  - Panel de admin configurado para ambas entidades
-  - Templates Bootstrap responsivos
-  - 3 productos de ejemplo cargados
-
-- **Documentación SDD**
-  - PRD.md versión 2.0 con estructura profesional
-  - AGENTS.md con reglas y skills por fase
-  - SKILLS.md con referencia rápida de skills
-  - Sistema de memoria Engram configurado
-
-- **Skills instaladas**
-  - django-tdd (testing TDD para Django)
-  - django-patterns (patrones de Django)
-  - python-testing-patterns (testing Python)
-  - agent-browser (browser automation)
-  - Skills SDD (sdd-init, sdd-propose, sdd-spec, etc.)
+- App `buscador` con resultados en `/buscador/`
+- Búsqueda por texto libre que interpreta nombre de juego, plataforma o combinaciones simples
+- Vista de detalle por slug en `/catalogo/<slug>/`
+- Template `catalogo/detalle_juego.html` con portada, precio, plataforma y stock
+- Portadas dinámicas por slug con fallback a `default.png`
+- Paginación en catálogo y buscador (6 productos por página)
+- Más juegos y portadas de ejemplo en `populate_productos`
 
 ### Changed
 
-- Proyecto reorganizado para seguir workflow SDD
-- Modelo de datos expandido para soportar todas las fases
-- Templates migrate de estructura básica a responsivos
+- El header ahora envía búsquedas reales al buscador del proyecto
+- Las cards de catálogo y buscador enlazan al detalle del producto
+- El provider por defecto de GGA pasó a `opencode`
 
-### Removed
+### Added
 
-- Contenido temporal de pruebas
+- **Phase 2.1 MVP - Catálogo de Productos**
+  - Modelo `Producto` con campos esenciales (titulo, precio, stock, activo, plataforma, slug)
+  - Auto-generación de slug único desde el título del producto
+  - Vista `lista_juegos` para mostrar catálogo de productos activos
+  - Template `catalogo/lista_juegos.html` con grid responsivo de productos
+  - Admin interface personalizado para gestión de productos con list_display, list_filter, search_fields
+  - Management command `populate_productos` para poblar base de datos con productos de ejemplo
+  - Migración inicial `0001_initial.py` para modelo Producto
+  - Configuración de variables de entorno con `python-dotenv`
+  - Archivo `.env.example` con plantilla de configuración
+  - URL namespacing para app catalogo (`app_name = 'catalogo'`)
+  - Navbar fixed-top con ajuste de padding en body
+  - Link funcional a Tienda en navbar usando `{% url 'catalogo:lista_juegos' %}`
+
+### Changed
+
+- `SECRET_KEY` y `DEBUG` ahora se cargan desde variables de entorno (.env)
+- Navbar ahora es fixed-top para mejor experiencia de usuario
+- CSS actualizado con variables CSS para navbar-height
+- Body padding ajustado para compensar navbar fixed-top
+
+### Security
+
+- SECRET_KEY movido a variables de entorno (no hardcoded)
+- Validación de SECRET_KEY requerida al iniciar aplicación
+- Archivo .env excluido de control de versiones
 
 ## [1.0.0] - 2025-01-20
 
@@ -77,6 +85,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CSRF protection habilitado en Django
 - ALLOWED_HOSTS configurado para desarrollo local
 
-[Unreleased]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.1.0...HEAD
-[1.1.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.0.0...v1.1.0
+[Unreleased]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/releases/tag/v1.0.0

@@ -1,117 +1,165 @@
-# Tienda de Videojuegos 🕹️
+# VIDEOJUEGOS_TIENDA
 
-E-commerce de videojuegos desarrollado con Django.
+Tienda de videojuegos construida con Django (templates + Bootstrap). Este repo incluye:
 
-## 🚀 Estado del Proyecto
+- Catalogo funcionando: modelo `Producto`, listado `/catalogo/`, detalle por slug, admin y comando de carga de datos.
+- Buscador funcionando: `/buscador/` con busqueda por texto libre (nombre, plataforma o combinacion simple como `zelda switch`).
+- Stack de agentes (Gentle): GGA (code review en pre-commit), Engram (memoria), skills del proyecto.
 
-| Fase | Estado |
-|------|--------|
-| Fase 1: Fundamentos | ✅ Completado |
-| Fase 2: Catálogo | ✅ Completado |
-| Fase 3: Carrito/Checkout | ⏳ Pendiente |
-| Fase 4: Usuarios | ⏳ Pendiente |
-| Fase 5: Wishlist | ⏳ Pendiente |
+## Estado del proyecto
 
-## 🛠️ Tech Stack
+- Roadmap y requisitos: `PRD.md`
+- Cambios versionados: `CHANGELOG.md`
+- Reglas de codigo (usadas por GGA): `AGENTS.md`
 
-- **Backend**: Django 6.0
-- **Base de datos**: SQLite (desarrollo)
-- **Frontend**: Django Templates + Bootstrap 5
-- **Testing**: pytest, django-tdd
+## Requisitos
 
-## 📋 Requisitos
+- Python (recomendado: usar venv)
+- Node.js + npm (opcional; para `agent-browser`)
 
+Dependencias Python:
+
+- Canonico: `requirements.txt` (root)
+- Alias: `tienda_videojuegos/requirements.txt` (incluye `-r ../requirements.txt`)
+
+## Setup rapido (Windows)
+
+```bat
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
 ```
-Django 6.0+
-Python 3.10+
+
+Crear variables de entorno:
+
+1) Copiar `/.env.example` a `/.env`
+2) Setear al menos `DJANGO_SECRET_KEY`.
+
+Migraciones y servidor:
+
+```bat
+python tienda_videojuegos\manage.py migrate
+python tienda_videojuegos\manage.py populate_productos
+python tienda_videojuegos\manage.py runserver
 ```
 
-## ⚡ Instalación
+URLs utiles:
+
+- App: `http://127.0.0.1:8000/`
+- Catalogo: `http://127.0.0.1:8000/catalogo/`
+- Buscador: `http://127.0.0.1:8000/buscador/?q=zelda`
+- Detalle ejemplo: `http://127.0.0.1:8000/catalogo/the-legend-of-zelda-breath-of-the-wild/`
+- Admin: `http://127.0.0.1:8000/admin/`
+
+## Setup rapido (macOS/Linux)
 
 ```bash
-# 1. Clonar el repositorio
-git clone <repo-url>
-cd VIDEOJUEGOS_TIENDA
-
-# 2. Crear entorno virtual
-python -m venv .venv
-source .venv/Scripts/activate  # Windows
-# source .venv/bin/activate   # Linux/Mac
-
-# 3. Instalar dependencias
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 
-# 4. Ejecutar migraciones
-cd tienda_videojuegos
-python manage.py migrate
-
-# 5. (Opcional) Cargar datos de ejemplo
-python manage.py shell < seed_data.py
-
-# 6. Iniciar servidor
-python manage.py runserver
+python tienda_videojuegos/manage.py migrate
+python tienda_videojuegos/manage.py populate_productos
+python tienda_videojuegos/manage.py runserver
 ```
 
-## 📁 Estructura del Proyecto
+## Estructura
 
-```
-VIDEOJUEGOS_TIENDA/
-├── tienda_videojuegos/     # Proyecto Django
-│   ├── catalogo/         # App de catálogo (productos, géneros)
-│   ├── home/            # App de página principal
-│   ├── templates/        # Templates base
-│   └── manage.py
-├── templates/            # Templates del proyecto
-├── static/               # Archivos estáticos (CSS, JS)
-├── AGENTS.md            # Reglas y configuración de agentes
-├── SKILLS.md            # Referencia de skills
-├── PRD.md               # Especificaciones del producto
-└── CHANGELOG.md         # Historial de cambios
-```
+- `tienda_videojuegos/`:
+  - `manage.py`
+  - `tienda_videojuegos/settings.py` (carga `.env` via `python-dotenv`)
+  - Apps: `home/`, `catalogo/`, `buscador/`
+- `.agent/skills/`: skills y registry del proyecto
+- `.engram/`: sync de memoria (manifest + chunks)
 
-## 🌐 Endpoints
+## Funcionalidades actuales
 
-| Ruta | Descripción |
-|------|-------------|
-| `/` | Página principal |
-| `/catalogo/` | Catálogo de productos |
-| `/catalogo/producto/<slug>/` | Detalle de producto |
-| `/admin/` | Panel de administración |
+- Catalogo paginado: 6 productos por pagina con `Primera`, `Anterior`, paginas visibles, `Siguiente`, `Ultima`.
+- Portadas por slug desde `static/img/portadas/` con fallback a `default.png`.
+- Vista de detalle por slug para cada juego.
+- Buscador por texto libre que interpreta nombre de juego, plataforma o ambos.
+- Seed de productos ampliado mediante `populate_productos`.
 
-## 🧪 Testing
+## Workflow de calidad (GGA)
+
+GGA corre en `pre-commit` y usa la config del repo:
+
+- Config: `.gga`
+- Reglas: `AGENTS.md`
+
+Git hooks no se versionan. En un clon nuevo instala el hook:
 
 ```bash
-# Ejecutar tests
-python manage.py test
-
-# Con pytest
-pytest
+gga install
 ```
 
-## 📚 Documentación
+Tambien lo podes correr a mano:
 
-- [PRD.md](./PRD.md) - Especificaciones del producto
-- [AGENTS.md](./AGENTS.md) - Reglas para agentes de IA
-- [SKILLS.md](./SKILLS.md) - Skills disponibles
+```bash
+gga run
+gga config
+```
 
-## 🤖 Agentes y Skills
+Nota: GGA revisa `*.py`, `*.html`, `*.css`, `*.js` (y TS si existiera) y excluye migraciones (`*/migrations/*.py`).
 
-Este proyecto usa el workflow SDD (Spec-Driven Development) con skills específicas por fase:
+## Engram sync (automatico)
 
-- **Fase 2**: django-patterns
-- **Fase 3**: django-tdd, django-patterns
-- **Fase 4**: django-tdd, django-patterns
-- **Testing**: python-testing-patterns, pytest
-- **E2E**: agent-browser, playwright
+Este repo versiona la memoria Engram en `.engram/` (manifest + chunks). Para automatizar el export/commit de memorias:
 
-Ver [SKILLS.md](./SKILLS.md) para más detalles.
+1) Instala los hooks del repo (una vez por clon)
 
-## 👤 Autor
+Windows (PowerShell):
 
-## 📄 Licencia
+```powershell
+./scripts/install-hooks.ps1
+```
 
-MIT License
+macOS/Linux (bash):
 
----
+```bash
+./scripts/install-hooks.sh
+```
 
-Última actualización: Marzo 2026
+2) A partir de ahi, despues de cada `git commit` se genera un commit extra:
+
+- `chore: sync engram memories`
+
+Opt-out (por sesion):
+
+```bash
+ENGRAM_AUTO_SYNC=0 git commit -m "..."
+```
+
+## Browser automation (agent-browser)
+
+Opcional, para smoke/E2E rapido sin Playwright.
+
+Instalacion global:
+
+```bash
+npm install -g agent-browser
+agent-browser install
+```
+
+Ejemplo contra el catalogo (con el `runserver` levantado):
+
+```bash
+agent-browser --allowed-domains "127.0.0.1,localhost" open http://127.0.0.1:8000/catalogo/
+agent-browser wait --load networkidle
+agent-browser snapshot -i --json
+```
+
+Ver skill del proyecto: `.agent/skills/agent-browser/SKILL.md`
+
+## Skills (agentes)
+
+Registry del proyecto:
+
+- `.agent/skills/skill-registry.md`
+
+Incluye `find-skills` para buscar/instalar skills del ecosistema con `npx skills`.
+
+## Notas
+
+- `/.env` esta ignorado por git (no commitear secretos).
+- No uses `env/` como venv en Windows; usa `.venv/`.

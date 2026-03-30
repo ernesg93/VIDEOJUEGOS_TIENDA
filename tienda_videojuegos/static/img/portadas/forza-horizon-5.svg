@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e85c2c"/>
+      <stop offset="100%" stop-color="#5b1f11"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#bg)"/>
+  <path d="M0 610 C130 540 240 630 600 470 L600 900 L0 900 Z" fill="#1b1b1b" opacity="0.45"/>
+  <path d="M120 500 L265 260 L295 390 L395 240 L482 500 Z" fill="#fff2df" opacity="0.9"/>
+  <text x="56" y="130" fill="#fff5ec" font-family="Arial Black, sans-serif" font-size="68">FORZA</text>
+  <text x="56" y="205" fill="#fff5ec" font-family="Arial Black, sans-serif" font-size="68">HORIZON</text>
+  <text x="430" y="206" fill="#1b1b1b" font-family="Arial Black, sans-serif" font-size="78">5</text>
+  <text x="58" y="820" fill="#fff5ec" font-family="Verdana, sans-serif" font-size="26" letter-spacing="6">XBOX SERIES</text>
+</svg>

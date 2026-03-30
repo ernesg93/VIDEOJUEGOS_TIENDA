@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#355c3a"/>
+      <stop offset="100%" stop-color="#c9a34d"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#bg)"/>
+  <circle cx="455" cy="165" r="72" fill="#f5d98b" opacity="0.85"/>
+  <path d="M90 690 L210 360 L280 520 L355 260 L500 690 Z" fill="#1e3522" opacity="0.92"/>
+  <text x="58" y="120" fill="#f8f4dc" font-family="Georgia, serif" font-size="38" font-weight="700">THE LEGEND OF</text>
+  <text x="58" y="172" fill="#fff6cf" font-family="Georgia, serif" font-size="56" font-weight="700">ZELDA</text>
+  <text x="58" y="228" fill="#f8f4dc" font-family="Verdana, sans-serif" font-size="28" font-weight="600">BREATH OF THE WILD</text>
+  <text x="58" y="820" fill="#f8f4dc" font-family="Verdana, sans-serif" font-size="26" letter-spacing="6">NINTENDO SWITCH</text>
+</svg>
