@@ -5,7 +5,13 @@
 
 {% block content %}
 <section class="container mt-4 text-start">
-    <h1 class="text-body">Resultados de busqueda</h1>
+    <h1 class="text-body">
+        {% if q %}
+        Resultado para "{{ q }}"
+        {% else %}
+        Resultados de busqueda
+        {% endif %}
+    </h1>
 
     <form method="get" class="row g-2 align-items-end mt-2 mb-3">
         <div class="col-12 col-md-10">
@@ -37,9 +43,15 @@
         {% for juego in lista_juegos %}
         <div class="col">
             <article class="card h-100">
-                <img src="{% static juego.portada_static_path %}" class="card-img-top" alt="Portada de {{ juego.titulo }}">
+                <a href="{% url 'catalogo:detalle_juego' juego.slug %}" class="text-decoration-none">
+                    <img src="{% static juego.portada_static_path %}" class="card-img-top" alt="Portada de {{ juego.titulo }}">
+                </a>
                 <section class="card-body">
-                    <h5 class="card-title text-body">{{ juego.titulo }}</h5>
+                    <h5 class="card-title">
+                        <a href="{% url 'catalogo:detalle_juego' juego.slug %}" class="text-body text-decoration-none">
+                            {{ juego.titulo }}
+                        </a>
+                    </h5>
                     <p class="card-text text-body">
                         <strong>Precio:</strong> ${{ juego.precio }}<br>
                         <strong>Plataforma:</strong> {{ juego.get_plataforma_display }}

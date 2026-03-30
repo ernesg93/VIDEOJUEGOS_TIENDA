@@ -12,9 +12,15 @@
         {% for juego in lista_juegos %}
         <div class="col">
             <article class="card h-100">
-                <img src="{% static juego.portada_static_path %}" class="card-img-top" alt="Portada de {{ juego.titulo }}">
+                <a href="{% url 'catalogo:detalle_juego' juego.slug %}" class="text-decoration-none">
+                    <img src="{% static juego.portada_static_path %}" class="card-img-top" alt="Portada de {{ juego.titulo }}">
+                </a>
                 <section class="card-body">
-                    <h5 class="card-title text-body">{{ juego.titulo }}</h5>
+                    <h5 class="card-title">
+                        <a href="{% url 'catalogo:detalle_juego' juego.slug %}" class="text-body text-decoration-none">
+                            {{ juego.titulo }}
+                        </a>
+                    </h5>
                     <p class="card-text text-body">
                         <strong>Precio:</strong> ${{ juego.precio }}<br>
                         <strong>Plataforma:</strong> {{ juego.get_plataforma_display }}

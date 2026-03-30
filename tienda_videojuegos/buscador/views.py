@@ -1,10 +1,8 @@
-from pathlib import Path
-
-from django.contrib.staticfiles import finders
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
 from catalogo.models import Producto
+from catalogo.utils import assign_portada_static_path
 
 
 PLATAFORMA_TERMS = {
@@ -58,18 +56,9 @@ def resultados_busqueda(request):
         juegos_qs = juegos_qs.filter(plataforma=plataforma)
 
     juegos = list(juegos_qs)
-    default_portada = "img/portadas/default.png"
 
     for juego in juegos:
-        svg_static_path = Path("img/portadas") / f"{juego.slug}.svg"
-        png_static_path = Path("img/portadas") / f"{juego.slug}.png"
-
-        if finders.find(svg_static_path.as_posix()):
-            juego.portada_static_path = svg_static_path.as_posix()
-        elif finders.find(png_static_path.as_posix()):
-            juego.portada_static_path = png_static_path.as_posix()
-        else:
-            juego.portada_static_path = default_portada
+        assign_portada_static_path(juego)
 
     paginator = Paginator(juegos, 6)
     page_number = request.GET.get("page")
