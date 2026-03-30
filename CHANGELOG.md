@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-03-29
+
 ### Added
 
 - App `buscador` con resultados en `/buscador/`
@@ -22,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - El header ahora envía búsquedas reales al buscador del proyecto
 - Las cards de catálogo y buscador enlazan al detalle del producto
 - El provider por defecto de GGA pasó a `opencode`
+
+## [1.1.0] - 2026-03-24
 
 ### Added
 
@@ -85,5 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CSRF protection habilitado en Django
 - ALLOWED_HOSTS configurado para desarrollo local
 
-[Unreleased]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/releases/tag/v1.0.0
