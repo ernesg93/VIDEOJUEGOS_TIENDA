@@ -80,6 +80,14 @@
       "sessions": 0,
       "memories": 2,
       "prompts": 3
+    },
+    {
+      "id": "946a9692",
+      "created_by": "R2D2",
+      "created_at": "2026-03-30T03:30:07Z",
+      "sessions": 0,
+      "memories": 0,
+      "prompts": 1
     }
   ]
 }
