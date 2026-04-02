@@ -14,7 +14,9 @@
     <article class="card shadow-sm border-0">
         <div class="row g-0">
             <div class="col-12 col-md-5">
-                <img src="{% static juego.portada_static_path %}" class="img-fluid rounded-start w-100" alt="Portada de {{ juego.titulo }}">
+                <div class="detalle-portada-media rounded-start overflow-hidden h-100">
+                    <img src="{% static juego.portada_static_path %}" class="detalle-portada-imagen img-fluid rounded-start w-100 h-100 object-fit-cover" alt="Portada de {{ juego.titulo }}">
+                </div>
             </div>
             <div class="col-12 col-md-7">
                 <div class="card-body p-4">
@@ -39,9 +41,14 @@
                         </dd>
                     </dl>
 
-                    <div class="d-flex flex-wrap gap-2">
+                    <div class="detalle-acciones d-flex flex-row flex-wrap gap-2">
                         <a href="{% url 'catalogo:lista_juegos' %}" class="btn btn-primary">Seguir viendo juegos</a>
-                        <a href="{% url 'contacto' %}" class="btn btn-outline-secondary">Consultar este producto</a>
+                        <a href="#" class="btn btn-success">
+                            <i class="fa-solid fa-cart-shopping me-2"></i>Comprar
+                        </a>
+                        <a href="#" class="btn btn-outline-danger">
+                            <i class="fa-solid fa-heart me-2"></i>Agregar a favoritos
+                        </a>
                     </div>
                 </div>
             </div>
