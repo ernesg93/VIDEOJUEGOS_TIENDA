@@ -1,22 +1,34 @@
 from django.contrib import messages
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from .forms import RegistroUsuarioForm
+from .forms import LoginUsuarioForm, RegistroUsuarioForm
 
 
 def login_view(request):
-    """Render the login page placeholder.
+    """Handle login form submission and redirect home when authenticated.
 
     Args:
         request: HttpRequest object.
 
     Returns:
-        HttpResponse: Rendered login template.
+        HttpResponse: Login template or redirect to home when successful.
     """
-    return render(request, "usuarios/login.html")
+    if request.method == "POST":
+        form = LoginUsuarioForm(request, data=request.POST)
+        if form.is_valid():
+            auth_login(request, form.get_user())
+            messages.success(request, "Inicio de sesion correcto.")
+            return redirect("home")
+        messages.error(request, "Usuario o contrasena incorrectos.")
+    else:
+        form = LoginUsuarioForm(request)
+
+    return render(request, "usuarios/login.html", {"form": form})
 
 
+@login_required(login_url="usuarios:login")
 def perfil_view(request):
     """Render the user profile page placeholder.
 
@@ -27,6 +39,21 @@ def perfil_view(request):
         HttpResponse: Rendered profile template.
     """
     return render(request, "usuarios/perfil.html")
+
+
+@login_required(login_url="usuarios:login")
+def logout_view(request):
+    """Log the user out and redirect to login.
+
+    Args:
+        request: HttpRequest object.
+
+    Returns:
+        HttpResponseRedirect: Redirect to login page after logout.
+    """
+    auth_logout(request)
+    messages.success(request, "Sesion cerrada correctamente.")
+    return redirect("usuarios:login")
 
 
 def registro_view(request):
