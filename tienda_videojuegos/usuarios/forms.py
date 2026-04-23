@@ -46,8 +46,16 @@ class RegistroUsuarioForm(UserCreationForm):
         self.fields["password1"].label = "Contrasena"
         self.fields["password2"].label = "Confirmar contrasena"
         self.fields["password1"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "Contrasena"}
+            {
+                "class": "form-control",
+                "placeholder": "Contrasena",
+                "autocomplete": "new-password",
+            }
         )
         self.fields["password2"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "Repite la contrasena"}
+            {
+                "class": "form-control",
+                "placeholder": "Repite la contrasena",
+                "autocomplete": "new-password",
+            }
         )
