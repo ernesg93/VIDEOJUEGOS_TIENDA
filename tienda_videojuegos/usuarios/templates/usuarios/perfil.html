@@ -4,6 +4,20 @@
 
 {% block content %}
 <section class="container mt-4">
-    <h1 class="text-body">Perfil</h1>
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="p-4 text-center">
+                <h1 class="text-body mb-2">Bienvenido, {{ request.user.username }}</h1>
+                <p class="text-body-secondary mb-4">{{ request.user.email }}</p>
+
+                <form method="post" action="{% url 'usuarios:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger">
+                        Cerrar sesion
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}

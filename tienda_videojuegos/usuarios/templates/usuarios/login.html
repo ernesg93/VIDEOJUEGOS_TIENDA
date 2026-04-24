@@ -10,7 +10,10 @@
         <div class="col-12 col-md-8 col-lg-6">
             {% if messages %}
             {% for message in messages %}
-            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}" role="alert">
+            <div
+                class="alert alert-{% if message.tags == 'error' %}danger{% elif message.tags == 'warning' %}warning{% else %}success{% endif %}"
+                role="alert"
+            >
                 {{ message }}
             </div>
             {% endfor %}
@@ -24,7 +27,21 @@
                         {% for field in form %}
                         <div class="mb-3 text-start">
                             <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {% if field.name == 'password' %}
+                            <div class="input-group">
+                                {{ field }}
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary password-toggle-button"
+                                    data-target="{{ field.id_for_label }}"
+                                    aria-label="Mostrar u ocultar contrasena"
+                                >
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                            {% else %}
                             {{ field }}
+                            {% endif %}
                             {% for error in field.errors %}
                             <div class="text-danger small mt-1">{{ error }}</div>
                             {% endfor %}
@@ -33,6 +50,11 @@
 
                         <button type="submit" class="btn btn-primary w-100">Iniciar sesion</button>
                     </form>
+
+                    <p class="text-center mt-3 mb-0 text-body-secondary">
+                        No tienes cuenta?
+                        <a href="{% url 'usuarios:registro' %}" class="text-decoration-none">Registrate</a>
+                    </p>
                 </div>
             </article>
         </div>

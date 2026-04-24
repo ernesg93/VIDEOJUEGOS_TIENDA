@@ -41,6 +41,8 @@ class RegistroViewTests(TestCase):
         self.assertIn("_auth_user_id", self.client.session)
 
     def test_login_view_shows_error_with_invalid_credentials(self):
+        User.objects.create_user(username="ernesg93", password="ClaveSegura123!")
+
         response = self.client.post(
             reverse("usuarios:login"),
             {
@@ -50,17 +52,49 @@ class RegistroViewTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)  # type: ignore[attr-defined]
-        self.assertContains(response, "Usuario o contrasena incorrectos.")
+        self.assertContains(response, "La contrasena ingresada es incorrecta.")
         self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_login_view_shows_error_with_unknown_username(self):
+        response = self.client.post(
+            reverse("usuarios:login"),
+            {
+                "username": "desconocido",
+                "password": "alguna-clave",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)  # type: ignore[attr-defined]
+        self.assertContains(response, "El usuario ingresado no existe.")
+
+    def test_login_view_shows_warning_with_empty_credentials(self):
+        response = self.client.post(
+            reverse("usuarios:login"),
+            {
+                "username": "",
+                "password": "",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)  # type: ignore[attr-defined]
+        self.assertContains(response, "Completa tu usuario y contrasena para iniciar sesion.")
 
     def test_logout_view_logs_user_out_and_redirects_login(self):
         usuario = User.objects.create_user(username="logout_user", password="ClaveSegura123!")
         self.client.force_login(usuario)
 
-        response = self.client.get(reverse("usuarios:logout"))
+        response = self.client.post(reverse("usuarios:logout"))
 
         self.assertRedirects(response, reverse("usuarios:login"))
         self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_logout_view_get_redirects_to_profile(self):
+        usuario = User.objects.create_user(username="logout_get_user", password="ClaveSegura123!")
+        self.client.force_login(usuario)
+
+        response = self.client.get(reverse("usuarios:logout"))
+
+        self.assertRedirects(response, reverse("usuarios:perfil"))
 
     def test_registro_view_creates_user_and_logs_in(self):
         response = self.client.post(
