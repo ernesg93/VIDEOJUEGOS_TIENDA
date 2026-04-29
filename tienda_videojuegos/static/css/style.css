@@ -62,6 +62,10 @@ body {
     border-color: var(--color-header-border);
 }
 
+.theme-toggle-button {
+    transition: all 0.3s ease;
+}
+
 .brand-title {
     font-weight: 700;
     font-size: 1.3rem;
@@ -79,6 +83,14 @@ body {
     color: var(--color-text-soft);
 }
 
+.navbar-collapse {
+    gap: var(--space-sm);
+}
+
+.site-header .navbar-collapse {
+    align-items: stretch;
+}
+
 .site-header .btn-outline-primary {
     color: var(--color-text-muted);
     border-color: var(--color-header-border);
@@ -88,6 +100,52 @@ body {
     color: var(--color-text-strong);
     background-color: var(--color-primary);
     border-color: var(--color-primary);
+}
+
+.user-menu-toggle {
+    width: 100%;
+    white-space: nowrap;
+    justify-content: flex-start;
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+    overflow: hidden;
+}
+
+.user-menu-avatar {
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--color-header-border);
+    color: var(--color-text-strong);
+}
+
+.user-menu-dropdown {
+    width: 100%;
+    min-width: 100%;
+    margin-top: 0.35rem;
+    padding: 0;
+    overflow: hidden;
+    left: 0;
+    right: auto;
+}
+
+.user-menu-dropdown .dropdown-item,
+.user-menu-dropdown .dropdown-item:focus,
+.user-menu-dropdown .dropdown-item:hover {
+    cursor: pointer;
+}
+
+.user-menu-dropdown .dropdown-item {
+    padding: 0.9rem 1rem;
+}
+
+.user-menu-dropdown form {
+    margin: 0;
+}
+
+.user-menu-dropdown button.dropdown-item {
+    border: 0;
+    background: transparent;
+    text-align: left;
 }
 
 /* === Footer (modo claro) === */
@@ -182,6 +240,41 @@ body {
 [data-bs-theme="dark"] .site-header .form-control {
     background-color: var(--color-dark-input);
     border-color: var(--color-dark-border);
+}
+
+[data-bs-theme="dark"] .user-menu-avatar {
+    background-color: var(--color-dark-input);
+}
+
+@media (min-width: 768px) {
+    .navbar-collapse {
+        gap: 0;
+    }
+
+    .site-header .navbar-collapse {
+        align-items: center;
+    }
+
+    .user-menu-wrapper {
+        width: auto;
+        min-width: 0;
+        max-width: 16rem;
+    }
+
+    .user-menu-toggle {
+        width: auto;
+        justify-content: flex-start;
+        padding: 0.5rem 0.85rem;
+        max-width: 100%;
+    }
+
+    .user-menu-dropdown {
+        width: max-content;
+        min-width: 14rem;
+        max-width: min(18rem, calc(100vw - 2rem));
+        right: 0;
+        left: auto;
+    }
 }
 
 

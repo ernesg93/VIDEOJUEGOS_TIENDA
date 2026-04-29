@@ -20,8 +20,7 @@
         <div class="container">
 
             <!-- Boton cambio de tema -->
-            <button id="toggle-theme" class="btn btn-outline-secondary d-flex align-items-center rounded-circle shadow-sm me-3"
-            style="transition: all 0.3s ease;">
+            <button id="toggle-theme" class="btn btn-outline-secondary d-flex align-items-center rounded-circle shadow-sm me-3 theme-toggle-button">
                 <i class="fa-solid fa-circle-half-stroke"></i>
             </button>
 
@@ -37,7 +36,7 @@
             </button>
 
             <!-- Contenido colapsable -->
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse align-items-md-center" id="navbarNav">
 
                 <!-- Navegacion -->
                 <ul class="navbar-nav me-auto">
@@ -64,7 +63,7 @@
                 </ul>
 
                 <!-- Buscador -->
-                <form class="d-flex" role="search" method="get" action="{% url 'buscador:resultados' %}">
+                <form class="d-flex flex-grow-1 flex-md-grow-0 mt-3 mt-md-0 ms-md-3" role="search" method="get" action="{% url 'buscador:resultados' %}">
                     <input
                         class="form-control me-2"
                         type="search"
@@ -77,6 +76,42 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </form>
+
+                <div class="dropdown ms-md-3 mt-3 mt-md-0 user-menu-wrapper">
+                    <button
+                        class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2 user-menu-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <span class="user-menu-avatar d-inline-flex align-items-center justify-content-center rounded-circle">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <span>
+                            Hola,
+                            {% if request.user.is_authenticated %}
+                            {{ request.user.username }}
+                            {% else %}
+                            Invitado
+                            {% endif %}
+                        </span>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end user-menu-dropdown">
+                        {% if request.user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'usuarios:perfil' %}">Mi Perfil</a></li>
+                        <li>
+                            <form method="post" action="{% url 'usuarios:logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item">Cerrar Sesion</button>
+                            </form>
+                        </li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'usuarios:login' %}">Iniciar Sesion</a></li>
+                        <li><a class="dropdown-item" href="{% url 'usuarios:registro' %}">Registrarse</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
 
             </div>
         </div>
