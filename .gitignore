@@ -35,7 +35,7 @@ Thumbs.db
 # Django
 *.log
 local_settings.py
-db.sqlite3
+tienda_videojuegos/db.sqlite3
 db.sqlite3-journal
 /media
 /staticfiles
@@ -49,4 +49,5 @@ db.sqlite3-journal
 screenshots/
 
 # Docs ignored
-leer.md
+#leer.md
+.opencode/

@@ -102,6 +102,13 @@ gga config
 
 Nota: GGA revisa `*.py`, `*.html`, `*.css`, `*.js` (y TS si existiera) y excluye migraciones (`*/migrations/*.py`).
 
+## Regla operativa del proyecto
+
+- Cambios chicos: trabajar directo, verificar y reiniciar `runserver` si hace falta.
+- Cambios chicos: no hacer `commit` ni `push` salvo que el usuario lo pida explicitamente.
+- Cambios medianos/grandes: usar SDD cuando ayude a ordenar exploracion, especificacion e implementacion.
+- Descubrimientos y decisiones importantes: guardarlos en Engram.
+
 ## Engram sync (automatico)
 
 Este repo versiona la memoria Engram en `.engram/` (manifest + chunks). Para automatizar el export/commit de memorias:

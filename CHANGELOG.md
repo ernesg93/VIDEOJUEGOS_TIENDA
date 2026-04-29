@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-04-29
+
+### Added
+
+- App `usuarios` con flujo base de autenticacion
+- Registro que crea el usuario, inicia sesion y redirige a inicio
+- Login real con `AuthenticationForm` y logout dedicado
+- Perfil protegido con `login_required`
+- Menu de usuario en el header con accesos a login, registro, perfil y cierre de sesion
+
+### Changed
+
+- La experiencia de autenticacion ahora diferencia errores de usuario inexistente, contrasena incorrecta y credenciales vacias
+- El formulario de registro usa toggle para mostrar u ocultar contrasenas desde `static/js/script.js`
+- `tienda_videojuegos/db.sqlite3` deja de versionarse para evitar ruido local
+
+### Fixed
+
+- Portada de `God of War Ragnarok` alineada con el slug real `god-of-war-ragnarok-1`
+
 ## [1.2.0] - 2026-03-29
 
 ### Added
@@ -89,7 +109,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CSRF protection habilitado en Django
 - ALLOWED_HOSTS configurado para desarrollo local
 
-[Unreleased]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/ernesg93/VIDEOJUEGOS_TIENDA/releases/tag/v1.0.0

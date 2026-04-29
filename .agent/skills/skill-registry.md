@@ -46,10 +46,9 @@ Esto ejecuta:
 ### 2. Cambio Rápido (ej: ajustar CSS, fix menor)
 
 ```bash
-# Sin SDD, implementar directo con GGA
-git add .
-git commit -m "fix: description"
-# GGA revisará automáticamente (si el hook está instalado: `gga install`)
+# Sin SDD, implementar directo
+# Verificar visualmente / con `manage.py check` / reiniciar `runserver` si hace falta
+# Commit y push SOLO cuando el usuario lo indique explicitamente
 ```
 
 ### 3. Investigar/Explorar (ej: cómo funciona el auth de Django)
@@ -68,6 +67,23 @@ git commit -m "fix: description"
 ```
 
 ---
+
+## ⚙️ Regla Operativa
+
+### Flujo chico vs flujo grande
+
+- **Cambios chicos** (CSS, templates, textos, ajustes puntuales, placeholders):
+  - trabajar directo sobre el codigo
+  - verificar con `manage.py check`, navegador o tests chicos
+  - reiniciar `runserver` si hace falta
+  - **no hacer commit ni push** salvo pedido explicito del usuario
+
+- **Cambios medianos o grandes** (nueva feature con varias piezas, cambios de arquitectura, releases, merges complejos):
+  - usar **SDD** (`sdd-explore`, `sdd-propose`, `sdd-spec`, etc.) cuando ayude a ordenar el trabajo
+  - documentar decisiones importantes y actualizar changelog/docs cuando corresponda
+
+- **Descubrimientos y decisiones**:
+  - guardar en **Engram** lo relevante (aprendizajes, gotchas, decisiones, preferencias)
 
 ## 📁 Estructura de Skills Disponibles
 
@@ -90,7 +106,6 @@ django-drf  → Patrones Django REST Framework
 pytest       → Testing en Python
 playwright   → E2E testing
 ```
-
 ### Utilidades
 ```
 find-skills              → Buscar skills

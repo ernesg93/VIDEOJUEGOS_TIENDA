@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="col">
+    <article class="card catalogo-card h-100">
+        <a href="{% url 'catalogo:detalle_juego' juego.slug %}" class="catalogo-card-media text-decoration-none">
+            <img src="{% static juego.portada_static_path %}" class="card-img-top" alt="Portada de {{ juego.titulo }}">
+        </a>
+        <section class="card-body">
+            <h5 class="card-title">
+                <a href="{% url 'catalogo:detalle_juego' juego.slug %}" class="text-body text-decoration-none">
+                    {{ juego.titulo }}
+                </a>
+            </h5>
+            <p class="card-text text-body">
+                <strong>Precio:</strong> ${{ juego.precio }}<br>
+                <strong>Plataforma:</strong> {{ juego.get_plataforma_display }}
+            </p>
+            <a href="{% url 'catalogo:detalle_juego' juego.slug %}" class="btn btn-primary">
+                <i class="fa-solid fa-circle-info me-2"></i>Ver detalles
+            </a>
+        </section>
+    </article>
+</div>
