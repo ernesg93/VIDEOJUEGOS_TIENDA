@@ -144,6 +144,14 @@
       "sessions": 2,
       "memories": 0,
       "prompts": 10
+    },
+    {
+      "id": "7aa7df7a",
+      "created_by": "R2D2",
+      "created_at": "2026-04-29T14:11:51Z",
+      "sessions": 0,
+      "memories": 0,
+      "prompts": 2
     }
   ]
 }
