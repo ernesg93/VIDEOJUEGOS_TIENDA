@@ -1,6 +1,8 @@
 /* === Variables CSS === */
 :root {
     --navbar-height: 70px; /* Adjusted for theme toggle button and padding */
+    --header-offset-mobile: 5.75rem;
+    --header-offset-desktop: 9.5rem;
     --color-header-bg: #343a40;
     --color-header-border: #495057;
     --color-text-muted: #dee2e6;
@@ -22,7 +24,7 @@
 
 /* === Encabezado (modo claro) === */
 body {
-    padding-top: var(--navbar-height); /* Compensar navbar fixed-top */
+    padding-top: var(--header-offset-mobile); /* Compensar header fixed-top */
 }
 
 .site-header {
@@ -73,6 +75,59 @@ body {
     letter-spacing: 0.5px;
 }
 
+.site-header__shell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+}
+
+.site-header__topbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    width: 100%;
+    min-height: 3.5rem;
+}
+
+.site-header__brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-right: 0;
+    white-space: nowrap;
+    z-index: 0;
+}
+
+.theme-toggle-button,
+.site-header__menu-toggle {
+    position: relative;
+    z-index: 1;
+}
+
+.site-header__desktop-zones,
+.site-header__mobile-panel {
+    width: 100%;
+    max-width: 100%;
+}
+
+.site-header__nav-zone,
+.site-header__search-zone,
+.site-header__user-zone {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.site-header__nav-zone .navbar-nav {
+    gap: 0.25rem;
+}
+
 .site-header .form-control {
     background-color: var(--color-header-border);
     border-color: var(--color-header-border);
@@ -81,14 +136,6 @@ body {
 
 .site-header .form-control::placeholder {
     color: var(--color-text-soft);
-}
-
-.navbar-collapse {
-    gap: var(--space-sm);
-}
-
-.site-header .navbar-collapse {
-    align-items: stretch;
 }
 
 .site-header .btn-outline-primary {
@@ -109,6 +156,14 @@ body {
     padding: 0.65rem 0.9rem;
     text-align: left;
     overflow: hidden;
+}
+
+.site-header__search-zone .d-flex {
+    width: 100%;
+}
+
+.site-header__search-zone .form-control {
+    min-width: 0;
 }
 
 .user-menu-avatar {
@@ -246,34 +301,83 @@ body {
     background-color: var(--color-dark-input);
 }
 
-@media (min-width: 768px) {
-    .navbar-collapse {
-        gap: 0;
+@media (min-width: 992px) {
+    body {
+        padding-top: var(--header-offset-desktop);
     }
 
-    .site-header .navbar-collapse {
+    .site-header__shell {
+        gap: 0.5rem;
+    }
+
+    .site-header__desktop-zones {
+        display: flex;
         align-items: center;
+        gap: var(--space-sm);
     }
 
-    .user-menu-wrapper {
+    .site-header__nav-zone {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .site-header__nav-zone .navbar-nav {
+        flex-wrap: wrap;
+    }
+
+    .site-header__search-zone {
+        flex: 0 1 clamp(14rem, 28vw, 21rem);
+    }
+
+    .site-header__user-zone {
+        flex: 0 0 auto;
+        margin-left: auto;
+    }
+
+    .site-header__user-zone .user-menu-wrapper {
         width: auto;
         min-width: 0;
         max-width: 16rem;
     }
 
-    .user-menu-toggle {
+    .site-header__user-zone .user-menu-toggle {
         width: auto;
-        justify-content: flex-start;
-        padding: 0.5rem 0.85rem;
-        max-width: 100%;
+        max-width: min(14rem, calc(100vw - 2rem));
     }
 
-    .user-menu-dropdown {
+    .site-header__user-zone .user-menu-dropdown {
         width: max-content;
         min-width: 14rem;
         max-width: min(18rem, calc(100vw - 2rem));
         right: 0;
         left: auto;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .site-header__mobile-panel {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-sm);
+        padding-top: 0.25rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .site-header__mobile-panel .site-header__nav-zone .navbar-nav {
+        width: 100%;
+    }
+
+    .site-header__mobile-panel .site-header__search-zone,
+    .site-header__mobile-panel .site-header__user-zone {
+        width: 100%;
+    }
+
+    .site-header__mobile-panel .site-header__user-zone .user-menu-dropdown {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        left: 0;
+        right: auto;
     }
 }
 
