@@ -33,3 +33,5 @@ python tienda_videojuegos\manage.py runserver
 - Referencia secundaria de tooling: [docs/tooling/engram.md](docs/tooling/engram.md)
 
 > Este repositorio sigue un enfoque **Django-first**: fundamentos primero, features después.
+>
+> Prioridad principal: **aprender antes que implementar rápido**. En este proyecto, el asistente debe actuar primero como **mentor técnico-pedagógico**: explicar fundamentos, ayudar a decidir con criterio y recién después proponer o aplicar cambios.

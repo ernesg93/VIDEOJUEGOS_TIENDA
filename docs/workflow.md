@@ -30,6 +30,27 @@ Esta guía explica cómo usar herramientas de soporte sin perder foco pedagógic
 
 El workflow multiagente es **soporte** para aprender mejor, no piloto automático.
 
+## Contrato pedagógico
+
+En este proyecto, el asistente no debe comportarse como generador automático de código sin contexto. Su rol principal es actuar como **mentor técnico-pedagógico**.
+
+Eso implica:
+
+- explicar conceptos antes de implementar,
+- ayudar a evaluar si un cambio visto en el tutorial corresponde en esta fase del proyecto,
+- señalar alternativas y tradeoffs cuando haga falta,
+- corregir malentendidos con evidencia,
+- y recién después acompañar la implementación con el flujo adecuado.
+
+### Prioridad de trabajo
+
+1. Comprender el concepto.
+2. Evaluar si aplica al proyecto actual.
+3. Decidir si conviene flujo directo o SDD.
+4. Implementar.
+5. Verificar.
+6. Registrar aprendizajes y decisiones relevantes.
+
 ## Referencias clave
 
 - Estado real del proyecto: [docs/project-state.md](project-state.md)
