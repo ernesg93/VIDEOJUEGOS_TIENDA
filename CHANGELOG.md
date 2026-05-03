@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Realineamiento documental pedagógico con jerarquía Django-first.
+- Nuevos documentos: `docs/project-state.md`, `docs/learning-path.md`, `docs/workflow.md`, `docs/documentation-policy.md`, `docs/tooling/engram.md`.
+
+### Changed
+
+- `README.md` simplificado como puerta de entrada y orden de lectura.
+- `PRD.md` actualizado con foco en fundamentos y roadmap incremental.
+- `DOCS.md` convertido en stub/redirect de compatibilidad hacia `docs/tooling/engram.md`.
+
 - App `buscador` con resultados en `/buscador/`
 - Búsqueda por texto libre que interpreta nombre de juego, plataforma o combinaciones simples
 - Vista de detalle por slug en `/catalogo/<slug>/`
@@ -16,8 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Portadas dinámicas por slug con fallback a `default.png`
 - Paginación en catálogo y buscador (6 productos por página)
 - Más juegos y portadas de ejemplo en `populate_productos`
-
-### Changed
 
 - El header ahora envía búsquedas reales al buscador del proyecto
 - Las cards de catálogo y buscador enlazan al detalle del producto
