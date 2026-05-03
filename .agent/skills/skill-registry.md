@@ -106,7 +106,6 @@ django-drf  → Patrones Django REST Framework
 pytest       → Testing en Python
 playwright   → E2E testing
 ```
-
 ### Utilidades
 ```
 find-skills              → Buscar skills
@@ -194,7 +193,7 @@ npx skills add <repo-url-o-owner/repo> --skill <skill-name> -g -y
 - Descripción del bug fix
 
 ### Removed
-- Descripción de功能 removida
+- Descripción de funcionalidad removida
 ```
 
 ### Categorías válidas:
@@ -207,7 +206,6 @@ npx skills add <repo-url-o-owner/repo> --skill <skill-name> -g -y
 | Fixed | Bug fixes |
 | Security | Cambios de seguridad |
 
-### Workflow completo (con changelog y tags):
 ### Workflow completo (con changelog):
 
 ```
@@ -224,7 +222,6 @@ npx skills add <repo-url-o-owner/repo> --skill <skill-name> -g -y
 ---
 
 ## 🔗 Recursos
-
 - Skills: `/home/ernesg93/.claude/skills/`, `/home/ernesg93/.config/opencode/skills/`
 - GGA: Pre-commit hook (instalar con `gga install`), revisa .py, .html, .css, .js
 - Docs: AGENTS.md
