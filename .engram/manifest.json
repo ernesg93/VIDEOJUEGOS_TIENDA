@@ -176,6 +176,14 @@
       "sessions": 3,
       "memories": 4,
       "prompts": 9
+    },
+    {
+      "id": "fd4ce075",
+      "created_by": "R2D2",
+      "created_at": "2026-05-03T07:08:41Z",
+      "sessions": 10,
+      "memories": 26,
+      "prompts": 16
     }
   ]
 }
