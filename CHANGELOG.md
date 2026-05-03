@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Realineamiento documental pedagógico con jerarquía Django-first.
 - Nuevos documentos: `docs/project-state.md`, `docs/learning-path.md`, `docs/workflow.md`, `docs/documentation-policy.md`, `docs/tooling/engram.md`.
+- Creación de `docs/learning-notebook.md` como cuaderno pedagógico por hitos con evidencia técnica.
 
 ### Changed
 

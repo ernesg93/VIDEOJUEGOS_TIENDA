@@ -8,7 +8,8 @@ Proyecto Django para aprender construyendo una tienda de videojuegos.
 2. [docs/project-state.md](docs/project-state.md) (estado real actual)
 3. [PRD.md](PRD.md) (roadmap)
 4. [docs/learning-path.md](docs/learning-path.md) (ruta de aprendizaje)
-5. [docs/workflow.md](docs/workflow.md) (cómo trabajar con soporte multiagente)
+5. [docs/learning-notebook.md](docs/learning-notebook.md) (evidencia y reflexión por hito)
+6. [docs/workflow.md](docs/workflow.md) (cómo trabajar con soporte multiagente)
 
 ## Setup mínimo
 

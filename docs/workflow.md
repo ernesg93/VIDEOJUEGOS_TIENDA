@@ -55,4 +55,10 @@ Eso implica:
 
 - Estado real del proyecto: [docs/project-state.md](project-state.md)
 - Ruta de aprendizaje: [docs/learning-path.md](learning-path.md)
+- Cuaderno de aprendizaje (público): [docs/learning-notebook.md](learning-notebook.md)
 - Roadmap: [PRD.md](../PRD.md)
+
+## Registro de aprendizaje vs trazabilidad operativa
+
+- Usá [docs/learning-notebook.md](learning-notebook.md) cuando consolidás aprendizaje pedagógico por hito con evidencia verificable.
+- Usá [docs/tooling/engram.md](tooling/engram.md) cuando necesitás trazabilidad operativa de decisiones, fases SDD y artifacts internos.

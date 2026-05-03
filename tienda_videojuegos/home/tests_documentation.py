@@ -99,3 +99,111 @@ class DocumentationRealignmentTests(TestCase):
 
         self.assertIn("soporte", workflow.lower())
         self.assertIn("no piloto automático", workflow.lower())
+
+
+class LearningNotebookDocumentationTests(TestCase):
+    def setUp(self):
+        self.repo_root = Path(__file__).resolve().parents[2]
+
+    def _read(self, relative_path):
+        return (self.repo_root / relative_path).read_text(encoding="utf-8")
+
+    def test_learning_notebook_exists_with_main_heading_and_purpose(self):
+        notebook_path = self.repo_root / "docs/learning-notebook.md"
+        self.assertTrue(notebook_path.exists(), "No existe docs/learning-notebook.md")
+
+        notebook = self._read("docs/learning-notebook.md")
+        self.assertIn("# Cuaderno de aprendizaje", notebook)
+        self.assertIn("aprendizaje por hitos", notebook.lower())
+        self.assertIn("evidencia", notebook.lower())
+        self.assertIn("no es una bitácora automática", notebook.lower())
+
+    def test_learning_notebook_is_linked_from_core_docs(self):
+        readme = self._read("README.md")
+        learning_path = self._read("docs/learning-path.md")
+        workflow = self._read("docs/workflow.md")
+        policy = self._read("docs/documentation-policy.md")
+
+        self.assertIn("[docs/learning-notebook.md](docs/learning-notebook.md)", readme)
+        self.assertIn("[docs/learning-notebook.md](learning-notebook.md)", learning_path)
+        self.assertIn("[docs/learning-notebook.md](learning-notebook.md)", workflow)
+        self.assertIn("docs/learning-notebook.md", policy)
+
+    def test_learning_notebook_declares_document_boundaries(self):
+        notebook = self._read("docs/learning-notebook.md")
+
+        self.assertIn("docs/learning-path.md", notebook)
+        self.assertIn("CHANGELOG.md", notebook)
+        self.assertIn("docs/tooling/engram.md", notebook)
+        self.assertIn("plan de estudio", notebook.lower())
+        self.assertIn("historial de cambios integrados", notebook.lower())
+        self.assertIn("trazabilidad operativa", notebook.lower())
+
+    def test_seed_milestones_include_required_seven_block_structure(self):
+        notebook = self._read("docs/learning-notebook.md")
+
+        for milestone in [
+            "## Hito 0 — Mapa documental y reglas del repo",
+            "## Hito 1 — Request/response + URLs/templates",
+            "## Hito 2 — Auth básica",
+        ]:
+            self.assertIn(milestone, notebook)
+
+        for required_block in [
+            "### Contexto",
+            "### Conceptos clave",
+            "### Evidencia en código y docs",
+            "### Criterio / decisión",
+            "### Errores o malentendidos",
+            "### Checklist de autoverificación",
+            "### Próximo paso",
+        ]:
+            self.assertEqual(notebook.count(required_block), 3)
+
+    def test_learning_notebook_contains_minimum_concept_index_and_maintenance_rules(self):
+        notebook = self._read("docs/learning-notebook.md")
+
+        self.assertIn("## Índice conceptual mínimo", notebook)
+        self.assertIn("- [Request/response](#hito-1--requestresponse--urlstemplates)", notebook)
+        self.assertIn("- [URLs y templates](#hito-1--requestresponse--urlstemplates)", notebook)
+        self.assertIn("- [Autenticación básica](#hito-2--auth-básica)", notebook)
+
+        self.assertIn("## Mantenimiento", notebook)
+        self.assertIn("por hito", notebook.lower())
+        self.assertIn("no diaria", notebook.lower())
+        self.assertIn("evidencia", notebook.lower())
+        self.assertIn("checklist", notebook.lower())
+
+    def test_changelog_mentions_learning_notebook_addition(self):
+        changelog = self._read("CHANGELOG.md")
+        self.assertIn("docs/learning-notebook.md", changelog)
+
+    def test_learning_notebook_hito_1_evidence_paths_are_verifiable(self):
+        notebook = self._read("docs/learning-notebook.md")
+
+        self.assertIn("tienda_videojuegos/templates/base.html", notebook)
+        self.assertIn("tienda_videojuegos/catalogo/templates/catalogo/", notebook)
+
+        self.assertTrue(
+            (self.repo_root / "tienda_videojuegos/templates/base.html").exists(),
+            "Debe existir template base en ruta real del repo",
+        )
+        self.assertTrue(
+            (self.repo_root / "tienda_videojuegos/catalogo/templates/catalogo").exists(),
+            "Debe existir carpeta templates del catálogo en ruta real del repo",
+        )
+
+    def test_learning_path_and_notebook_keep_plan_vs_evidence_boundaries(self):
+        learning_path = self._read("docs/learning-path.md")
+        notebook = self._read("docs/learning-notebook.md")
+
+        self.assertIn("plan de estudio", learning_path.lower())
+        self.assertIn("evidencia", notebook.lower())
+
+    def test_workflow_and_policy_define_notebook_vs_engram_semantics(self):
+        workflow = self._read("docs/workflow.md")
+        policy = self._read("docs/documentation-policy.md")
+
+        self.assertIn("consolidás aprendizaje pedagógico por hito", workflow.lower())
+        self.assertIn("engram", workflow.lower())
+        self.assertIn("fuera de precedencia", policy.lower())

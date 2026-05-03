@@ -5,6 +5,9 @@ Ruta pedagógica sugerida para aprender Django con este repo.
 Referencias de soporte:
 - Estado real: [docs/project-state.md](project-state.md)
 - Workflow de trabajo: [docs/workflow.md](workflow.md)
+- Cuaderno pedagógico: [docs/learning-notebook.md](learning-notebook.md)
+
+> Diferencia clave: este archivo define el **plan de estudio**; el cuaderno registra la **evidencia/reflexión por hito**.
 
 ## Etapa 1 — Fundamentos
 

@@ -9,6 +9,12 @@
 5. `docs/workflow.md` para operación de trabajo.
 6. `CHANGELOG.md` para hitos ya integrados.
 
+## Complemento pedagógico (fuera de precedencia)
+
+- `docs/learning-notebook.md` es un cuaderno de aprendizaje público por hitos.
+- No integra la cadena de source of truth: complementa onboarding/estudio con evidencia y reflexión técnica.
+- No reemplaza `docs/learning-path.md`, `CHANGELOG.md` ni `docs/tooling/engram.md`.
+
 ## Ownership
 
 - Owner principal: mantenedor/a del proyecto.
