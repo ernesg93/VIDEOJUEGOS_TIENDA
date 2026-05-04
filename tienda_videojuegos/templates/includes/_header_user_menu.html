@@ -1,0 +1,35 @@
+<div class="dropdown user-menu-wrapper">
+    <button
+        class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2 user-menu-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+    >
+        <span class="user-menu-avatar d-inline-flex align-items-center justify-content-center rounded-circle">
+            <i class="fa-solid fa-user"></i>
+        </span>
+        <span>
+            Hola,
+            {% if request.user.is_authenticated %}
+            {{ request.user.username }}
+            {% else %}
+            Invitado
+            {% endif %}
+        </span>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end user-menu-dropdown">
+        {% if request.user.is_authenticated %}
+        <li><a class="dropdown-item" href="{% url 'usuarios:perfil' %}">Mi Perfil</a></li>
+        <li>
+            <form method="post" action="{% url 'usuarios:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item">Cerrar Sesion</button>
+            </form>
+        </li>
+        {% else %}
+        <li><a class="dropdown-item" href="{% url 'usuarios:login' %}">Iniciar Sesion</a></li>
+        <li><a class="dropdown-item" href="{% url 'usuarios:registro' %}">Registrarse</a></li>
+        {% endif %}
+    </ul>
+</div>

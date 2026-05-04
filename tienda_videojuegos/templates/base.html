@@ -11,108 +11,58 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!--font awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="{% static 'img/logo.png' %}">
 </head>
 <body class="bg-body text-body">
 
     <!-- Encabezado -->
     <header>
-    <nav class="navbar site-header navbar-expand-md border-bottom fixed-top">
-        <div class="container">
+    <nav class="navbar site-header navbar-expand-lg border-bottom fixed-top">
+        <div class="container site-header__shell">
+            <div class="site-header__topbar">
+                <!-- Boton cambio de tema -->
+                <button id="toggle-theme" class="btn btn-outline-secondary d-flex align-items-center rounded-circle shadow-sm theme-toggle-button">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </button>
 
-            <!-- Boton cambio de tema -->
-            <button id="toggle-theme" class="btn btn-outline-secondary d-flex align-items-center rounded-circle shadow-sm me-3 theme-toggle-button">
-                <i class="fa-solid fa-circle-half-stroke"></i>
-            </button>
+                <!-- Logo + Titulo -->
+                <a class="navbar-brand d-flex align-items-center site-header__brand site-header__brand-zone" href="{% url 'home' %}">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" width="40" height="40" class="me-2">
+                    <span class="brand-title">PC GAMING</span>
+                </a>
 
-            <!-- Logo + Titulo -->
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-                <img src="{% static 'img/logo.png' %}" alt="Logo" width="40" height="40" class="me-2">
-                <span class="brand-title">PC GAMING</span>
-            </a>
+                <!-- Toggler para mobile -->
+                <button class="navbar-toggler site-header__menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#headerMobileZones" aria-controls="headerMobileZones" aria-expanded="false" aria-label="Mostrar navegacion">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
 
-            <!-- Toggler para mobile -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Contenido colapsable -->
-            <div class="collapse navbar-collapse align-items-md-center" id="navbarNav">
-
-                <!-- Navegacion -->
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
-                            <i class="fa-solid fa-house me-1"></i> Inicio
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if '/catalogo/' in request.path %}active{% endif %}" href="{% url 'catalogo:lista_juegos' %}">
-                            <i class="fa-solid fa-store me-1"></i> Catalogo
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa-solid fa-newspaper me-1"></i> Noticias
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/contacto/' %}active{% endif %}" href="{% url 'contacto' %}">
-                            <i class="fa-solid fa-envelope me-1"></i> Contacto
-                        </a>
-                    </li>
-                </ul>
-
-                <!-- Buscador -->
-                <form class="d-flex flex-grow-1 flex-md-grow-0 mt-3 mt-md-0 ms-md-3" role="search" method="get" action="{% url 'buscador:resultados' %}">
-                    <input
-                        class="form-control me-2"
-                        type="search"
-                        name="q"
-                        placeholder="Buscar"
-                        aria-label="Buscar"
-                        value="{{ request.GET.q|default:'' }}"
-                    >
-                    <button class="btn btn-outline-primary" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-
-                <div class="dropdown ms-md-3 mt-3 mt-md-0 user-menu-wrapper">
-                    <button
-                        class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2 user-menu-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <span class="user-menu-avatar d-inline-flex align-items-center justify-content-center rounded-circle">
-                            <i class="fa-solid fa-user"></i>
-                        </span>
-                        <span>
-                            Hola,
-                            {% if request.user.is_authenticated %}
-                            {{ request.user.username }}
-                            {% else %}
-                            Invitado
-                            {% endif %}
-                        </span>
-                    </button>
-
-                    <ul class="dropdown-menu dropdown-menu-end user-menu-dropdown">
-                        {% if request.user.is_authenticated %}
-                        <li><a class="dropdown-item" href="{% url 'usuarios:perfil' %}">Mi Perfil</a></li>
-                        <li>
-                            <form method="post" action="{% url 'usuarios:logout' %}">
-                                {% csrf_token %}
-                                <button type="submit" class="dropdown-item">Cerrar Sesion</button>
-                            </form>
-                        </li>
-                        {% else %}
-                        <li><a class="dropdown-item" href="{% url 'usuarios:login' %}">Iniciar Sesion</a></li>
-                        <li><a class="dropdown-item" href="{% url 'usuarios:registro' %}">Registrarse</a></li>
-                        {% endif %}
-                    </ul>
+            <div class="site-header__desktop-zones d-none d-lg-flex">
+                <div class="site-header__nav-zone">
+                    {% include 'includes/_header_nav_links.html' %}
                 </div>
 
+                <div class="site-header__search-zone">
+                    {% include 'includes/_header_search_form.html' %}
+                </div>
+
+                <div class="site-header__user-zone">
+                    {% include 'includes/_header_user_menu.html' %}
+                </div>
+            </div>
+
+            <div class="collapse site-header__mobile-panel d-lg-none" id="headerMobileZones">
+                <div class="site-header__nav-zone">
+                    {% include 'includes/_header_nav_links.html' %}
+                </div>
+
+                <div class="site-header__search-zone">
+                    {% include 'includes/_header_search_form.html' %}
+                </div>
+
+                <div class="site-header__user-zone">
+                    {% include 'includes/_header_user_menu.html' %}
+                </div>
             </div>
         </div>
     </nav>

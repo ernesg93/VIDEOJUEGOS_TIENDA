@@ -51,3 +51,4 @@ screenshots/
 # Docs ignored
 #leer.md
 .opencode/
+.atl/

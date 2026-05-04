@@ -6,14 +6,22 @@ from .utils import assign_portada_static_path
 
 
 def lista_juegos(request):
-    """Mostrar catálogo de juegos activos con paginación y portadas."""
+    """
+    Display the active video games catalog with cover fallbacks.
+
+    Args:
+        request: HttpRequest object.
+
+    Returns:
+        HttpResponse: Rendered template with the active games list.
+    """
     juegos = list(Producto.objects.filter(activo=True).order_by('-created_at'))
 
     for juego in juegos:
         assign_portada_static_path(juego)
 
     paginator = Paginator(juegos, 6)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     current_page = page_obj.number
@@ -23,29 +31,53 @@ def lista_juegos(request):
     visible_pages = range(page_range_start, page_range_end + 1)
 
     context = {
-        'lista_juegos': page_obj,
-        'page_obj': page_obj,
-        'visible_pages': visible_pages,
+        "lista_juegos": page_obj,
+        "page_obj": page_obj,
+        "visible_pages": visible_pages,
     }
-    return render(request, 'catalogo/lista_juegos.html', context)
+    return render(request, "catalogo/lista_juegos.html", context)
 
 
 def detalle_juego(request, slug):
-    """Mostrar detalle de un juego activo usando su slug."""
+    """
+    Display the detail page for one active video game.
+
+    Args:
+        request: HttpRequest object.
+        slug: Unique slug for the selected product.
+
+    Returns:
+        HttpResponse: Rendered template with the product detail.
+    """
     juego = get_object_or_404(Producto, slug=slug, activo=True)
     assign_portada_static_path(juego)
 
     context = {
-        'juego': juego,
+        "juego": juego,
     }
-    return render(request, 'catalogo/detalle_juego.html', context)
+    return render(request, "catalogo/detalle_juego.html", context)
 
 
 def lista_productos(request):
-    """Alias de compatibilidad para el listado de catálogo."""
+    """Return the public catalog list alias.
+
+    Args:
+        request: HttpRequest object.
+
+    Returns:
+        HttpResponse: Delegated response from ``lista_juegos``.
+    """
     return lista_juegos(request)
 
 
 def detalle_producto(request, slug):
-    """Alias de compatibilidad para el detalle de catálogo."""
+    """Return the public product detail alias.
+
+    Args:
+        request: HttpRequest object.
+        slug: Unique slug for the selected product.
+
+    Returns:
+        HttpResponse: Delegated response from ``detalle_juego``.
+    """
     return detalle_juego(request, slug)

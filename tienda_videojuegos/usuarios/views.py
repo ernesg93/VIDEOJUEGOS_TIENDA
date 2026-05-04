@@ -1,13 +1,9 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .forms import LoginUsuarioForm, RegistroUsuarioForm
-
-User = get_user_model()
-
 
 def login_view(request):
     """Handle login form submission and redirect home when authenticated.
@@ -29,10 +25,8 @@ def login_view(request):
 
         if not username or not password:
             messages.warning(request, "Completa tu usuario y contrasena para iniciar sesion.")
-        elif not User.objects.filter(username=username).exists():
-            messages.error(request, "El usuario ingresado no existe.")
         else:
-            messages.error(request, "La contrasena ingresada es incorrecta.")
+            messages.error(request, "Usuario o contrasena incorrectos.")
     else:
         form = LoginUsuarioForm(request)
 

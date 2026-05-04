@@ -1,172 +1,38 @@
 # VIDEOJUEGOS_TIENDA
 
-Tienda de videojuegos construida con Django (templates + Bootstrap). Este repo incluye:
+Proyecto Django para aprender construyendo una tienda de videojuegos.
 
-- Catalogo funcionando: modelo `Producto`, listado `/catalogo/`, detalle por slug, admin y comando de carga de datos.
-- Buscador funcionando: `/buscador/` con busqueda por texto libre (nombre, plataforma o combinacion simple como `zelda switch`).
-- Stack de agentes (Gentle): GGA (code review en pre-commit), Engram (memoria), skills del proyecto.
+## Empezá por acá (Django-first)
 
-## Estado del proyecto
+1. [README.md](README.md) (este archivo)
+2. [docs/project-state.md](docs/project-state.md) (estado real actual)
+3. [PRD.md](PRD.md) (roadmap)
+4. [docs/learning-path.md](docs/learning-path.md) (ruta de aprendizaje)
+5. [docs/learning-notebook.md](docs/learning-notebook.md) (evidencia y reflexión por hito)
+6. [docs/workflow.md](docs/workflow.md) (cómo trabajar con soporte multiagente)
 
-- Roadmap y requisitos: `PRD.md`
-- Cambios versionados: `CHANGELOG.md`
-- Reglas de codigo (usadas por GGA): `AGENTS.md`
-
-## Requisitos
-
-- Python (recomendado: usar venv)
-- Node.js + npm (opcional; para `agent-browser`)
-
-Dependencias Python:
-
-- Canonico: `requirements.txt` (root)
-- Alias: `tienda_videojuegos/requirements.txt` (incluye `-r ../requirements.txt`)
-
-## Setup rapido (Windows)
+## Setup mínimo
 
 ```bat
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-Crear variables de entorno:
-
-1) Copiar `/.env.example` a `/.env`
-2) Setear al menos `DJANGO_SECRET_KEY`.
-
-Migraciones y servidor:
-
-```bat
 python tienda_videojuegos\manage.py migrate
-python tienda_videojuegos\manage.py populate_productos
 python tienda_videojuegos\manage.py runserver
 ```
 
-URLs utiles:
+## Estado rápido
 
-- App: `http://127.0.0.1:8000/`
-- Catalogo: `http://127.0.0.1:8000/catalogo/`
-- Buscador: `http://127.0.0.1:8000/buscador/?q=zelda`
-- Detalle ejemplo: `http://127.0.0.1:8000/catalogo/the-legend-of-zelda-breath-of-the-wild/`
-- Admin: `http://127.0.0.1:8000/admin/`
+- Apps activas: `home`, `catalogo`, `buscador`, `usuarios`
+- Rutas clave: `/`, `/catalogo/`, `/buscador/`, `/usuarios/login/`
 
-## Setup rapido (macOS/Linux)
+## Calidad y documentación
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+- Convenciones: [AGENTS.md](AGENTS.md)
+- Historial: [CHANGELOG.md](CHANGELOG.md)
+- Política documental: [docs/documentation-policy.md](docs/documentation-policy.md)
+- Referencia secundaria de tooling: [docs/tooling/engram.md](docs/tooling/engram.md)
 
-python tienda_videojuegos/manage.py migrate
-python tienda_videojuegos/manage.py populate_productos
-python tienda_videojuegos/manage.py runserver
-```
-
-## Estructura
-
-- `tienda_videojuegos/`:
-  - `manage.py`
-  - `tienda_videojuegos/settings.py` (carga `.env` via `python-dotenv`)
-  - Apps: `home/`, `catalogo/`, `buscador/`
-- `.agent/skills/`: skills y registry del proyecto
-- `.engram/`: sync de memoria (manifest + chunks)
-
-## Funcionalidades actuales
-
-- Catalogo paginado: 6 productos por pagina con `Primera`, `Anterior`, paginas visibles, `Siguiente`, `Ultima`.
-- Portadas por slug desde `static/img/portadas/` con fallback a `default.png`.
-- Vista de detalle por slug para cada juego.
-- Buscador por texto libre que interpreta nombre de juego, plataforma o ambos.
-- Seed de productos ampliado mediante `populate_productos`.
-
-## Workflow de calidad (GGA)
-
-GGA corre en `pre-commit` y usa la config del repo:
-
-- Config: `.gga`
-- Reglas: `AGENTS.md`
-
-Git hooks no se versionan. En un clon nuevo instala el hook:
-
-```bash
-gga install
-```
-
-Tambien lo podes correr a mano:
-
-```bash
-gga run
-gga config
-```
-
-Nota: GGA revisa `*.py`, `*.html`, `*.css`, `*.js` (y TS si existiera) y excluye migraciones (`*/migrations/*.py`).
-
-## Regla operativa del proyecto
-
-- Cambios chicos: trabajar directo, verificar y reiniciar `runserver` si hace falta.
-- Cambios chicos: no hacer `commit` ni `push` salvo que el usuario lo pida explicitamente.
-- Cambios medianos/grandes: usar SDD cuando ayude a ordenar exploracion, especificacion e implementacion.
-- Descubrimientos y decisiones importantes: guardarlos en Engram.
-
-## Engram sync (automatico)
-
-Este repo versiona la memoria Engram en `.engram/` (manifest + chunks). Para automatizar el export/commit de memorias:
-
-1) Instala los hooks del repo (una vez por clon)
-
-Windows (PowerShell):
-
-```powershell
-./scripts/install-hooks.ps1
-```
-
-macOS/Linux (bash):
-
-```bash
-./scripts/install-hooks.sh
-```
-
-2) A partir de ahi, despues de cada `git commit` se genera un commit extra:
-
-- `chore: sync engram memories`
-
-Opt-out (por sesion):
-
-```bash
-ENGRAM_AUTO_SYNC=0 git commit -m "..."
-```
-
-## Browser automation (agent-browser)
-
-Opcional, para smoke/E2E rapido sin Playwright.
-
-Instalacion global:
-
-```bash
-npm install -g agent-browser
-agent-browser install
-```
-
-Ejemplo contra el catalogo (con el `runserver` levantado):
-
-```bash
-agent-browser --allowed-domains "127.0.0.1,localhost" open http://127.0.0.1:8000/catalogo/
-agent-browser wait --load networkidle
-agent-browser snapshot -i --json
-```
-
-Ver skill del proyecto: `.agent/skills/agent-browser/SKILL.md`
-
-## Skills (agentes)
-
-Registry del proyecto:
-
-- `.agent/skills/skill-registry.md`
-
-Incluye `find-skills` para buscar/instalar skills del ecosistema con `npx skills`.
-
-## Notas
-
-- `/.env` esta ignorado por git (no commitear secretos).
-- No uses `env/` como venv en Windows; usa `.venv/`.
+> Este repositorio sigue un enfoque **Django-first**: fundamentos primero, features después.
+>
+> Prioridad principal: **aprender antes que implementar rápido**. En este proyecto, el asistente debe actuar primero como **mentor técnico-pedagógico**: explicar fundamentos, ayudar a decidir con criterio y recién después proponer o aplicar cambios.

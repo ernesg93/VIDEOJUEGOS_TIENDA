@@ -40,7 +40,7 @@ class RegistroViewTests(TestCase):
         self.assertRedirects(response, reverse("home"))
         self.assertIn("_auth_user_id", self.client.session)
 
-    def test_login_view_shows_error_with_invalid_credentials(self):
+    def test_login_view_shows_generic_error_with_invalid_credentials(self):
         User.objects.create_user(username="ernesg93", password="ClaveSegura123!")
 
         response = self.client.post(
@@ -52,10 +52,10 @@ class RegistroViewTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)  # type: ignore[attr-defined]
-        self.assertContains(response, "La contrasena ingresada es incorrecta.")
+        self.assertContains(response, "Usuario o contrasena incorrectos.")
         self.assertNotIn("_auth_user_id", self.client.session)
 
-    def test_login_view_shows_error_with_unknown_username(self):
+    def test_login_view_shows_same_error_with_unknown_username(self):
         response = self.client.post(
             reverse("usuarios:login"),
             {
@@ -65,7 +65,30 @@ class RegistroViewTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)  # type: ignore[attr-defined]
-        self.assertContains(response, "El usuario ingresado no existe.")
+        self.assertContains(response, "Usuario o contrasena incorrectos.")
+
+    def test_login_view_does_not_reveal_whether_username_exists(self):
+        User.objects.create_user(username="ernesg93", password="ClaveSegura123!")
+
+        wrong_password_response = self.client.post(
+            reverse("usuarios:login"),
+            {
+                "username": "ernesg93",
+                "password": "incorrecta",
+            },
+        )
+        unknown_user_response = self.client.post(
+            reverse("usuarios:login"),
+            {
+                "username": "desconocido",
+                "password": "alguna-clave",
+            },
+        )
+
+        self.assertContains(wrong_password_response, "Usuario o contrasena incorrectos.")
+        self.assertContains(unknown_user_response, "Usuario o contrasena incorrectos.")
+        self.assertNotContains(wrong_password_response, "El usuario ingresado no existe.")
+        self.assertNotContains(unknown_user_response, "La contrasena ingresada es incorrecta.")
 
     def test_login_view_shows_warning_with_empty_credentials(self):
         response = self.client.post(
