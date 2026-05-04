@@ -56,3 +56,28 @@ def detalle_juego(request, slug):
         "juego": juego,
     }
     return render(request, "catalogo/detalle_juego.html", context)
+
+
+def lista_productos(request):
+    """Return the public catalog list alias.
+
+    Args:
+        request: HttpRequest object.
+
+    Returns:
+        HttpResponse: Delegated response from ``lista_juegos``.
+    """
+    return lista_juegos(request)
+
+
+def detalle_producto(request, slug):
+    """Return the public product detail alias.
+
+    Args:
+        request: HttpRequest object.
+        slug: Unique slug for the selected product.
+
+    Returns:
+        HttpResponse: Delegated response from ``detalle_juego``.
+    """
+    return detalle_juego(request, slug)

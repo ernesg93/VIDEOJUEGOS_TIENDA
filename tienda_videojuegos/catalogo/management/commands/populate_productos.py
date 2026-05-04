@@ -1,4 +1,7 @@
-from django.core.management.base import BaseCommand
+from pathlib import Path
+
+from django.db import transaction
+from django.core.management.base import BaseCommand, CommandError
 
 from catalogo.models import Producto
 
@@ -148,28 +151,51 @@ PRODUCTOS = [
 
 
 class Command(BaseCommand):
-    help = 'Populate database with sample video game products'
+    help = (
+        "Seed canónico del catálogo. Ejecutar con `python manage.py populate_productos`. "
+        "`seed_data.py` es wrapper opcional para el mismo flujo."
+    )
+
+    @staticmethod
+    def _assert_baseline_0001_restored():
+        migration_path = Path(__file__).resolve().parents[2] / "migrations" / "0001_initial.py"
+        migration_content = migration_path.read_text(encoding="utf-8")
+        forbidden_tokens = [
+            "name='Genero'",
+            "fecha_lanzamiento",
+            "descripcion_corta",
+            "descripcion_larga",
+            "precio_oferta",
+            "edad_minima",
+        ]
+
+        if any(token in migration_content for token in forbidden_tokens):
+            raise CommandError(
+                "Baseline inválido: 0001_initial.py deriva del contrato base. "
+                "No se permite avanzar con populate_productos."
+            )
 
     def handle(self, *args, **kwargs):
-        """Create sample products if they don't exist."""
+        """Crea/actualiza productos de muestra de forma idempotente y segura."""
+        self._assert_baseline_0001_restored()
         created_count = 0
-        for producto_data in PRODUCTOS:
-            producto, created = Producto.objects.get_or_create(
-                titulo=producto_data["titulo"],
-                defaults=producto_data
-            )
-            if created:
-                created_count += 1
-                self.stdout.write(
-                    self.style.SUCCESS(f'Created: {producto.titulo}')
+        updated_count = 0
+
+        with transaction.atomic():
+            for producto_data in PRODUCTOS:
+                producto, created = Producto.objects.update_or_create(
+                    titulo=producto_data["titulo"],
+                    defaults=producto_data,
                 )
-            else:
-                self.stdout.write(
-                    self.style.WARNING(f'Already exists: {producto.titulo}')
-                )
+                if created:
+                    created_count += 1
+                    self.stdout.write(self.style.SUCCESS(f"Created: {producto.titulo}"))
+                else:
+                    updated_count += 1
+                    self.stdout.write(self.style.WARNING(f"Updated: {producto.titulo}"))
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'\nCompleted! Created {created_count} new products.'
+                f"\nCompleted! Created {created_count} and updated {updated_count} products."
             )
         )
