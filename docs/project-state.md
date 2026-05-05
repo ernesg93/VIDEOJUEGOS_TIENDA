@@ -23,9 +23,27 @@ Apps locales registradas: `home`, `catalogo`, `buscador`, `usuarios`.
 ## Capacidades existentes
 
 - Catálogo con listado y detalle por slug.
+- Catálogo extendido con `Genero` y metadatos incrementales para producto (`fecha_lanzamiento`, descripciones, `precio_oferta`, `edad_minima`).
 - Buscador por texto libre en catálogo.
 - Flujo de autenticación base (login, logout, perfil, registro).
 - Templates para home, catálogo, buscador y usuarios.
+
+## Evolución reciente del catálogo
+
+- El dominio de `Producto` ya no está limitado al MVP inicial.
+- La evolución se hizo de forma incremental: el baseline histórico permanece en `0001_initial.py` y la ampliación vive en `0002_genero_producto_extend.py`.
+- El modelo `Genero` permite clasificar productos sin romper compatibilidad con productos existentes.
+- Los nuevos campos del catálogo amplían expresividad del dominio sin volver obligatorios los datos extendidos en registros previos.
+
+## Evidencia funcional del catálogo extendido
+
+- `tienda_videojuegos/catalogo/models.py` define `Genero` y los nuevos campos de `Producto`.
+- `tienda_videojuegos/catalogo/tests.py` valida:
+  - contratos de vistas públicas,
+  - baseline vs migración incremental,
+  - compatibilidad del dominio extendido,
+  - contrato de admin,
+  - comportamiento canónico del seed.
 
 ## Evidencia de tests actuales
 
@@ -51,3 +69,4 @@ Apps locales registradas: `home`, `catalogo`, `buscador`, `usuarios`.
 - No hay checkout ni pagos.
 - No hay suite E2E declarada.
 - El roadmap futuro vive en [PRD.md](../PRD.md) y no debe leerse como “ya implementado”.
+- La comprensión pedagógica del catálogo debe complementarse con el hito dedicado en [docs/learning-notebook.md](learning-notebook.md).

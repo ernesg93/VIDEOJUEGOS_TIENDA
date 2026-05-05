@@ -23,12 +23,14 @@ Documento pedagógico público para consolidar **aprendizaje por hitos** con evi
 - [Hito 0 — Mapa documental y reglas del repo](#hito-0--mapa-documental-y-reglas-del-repo)
 - [Hito 1 — Request/response + URLs/templates](#hito-1--requestresponse--urlstemplates)
 - [Hito 2 — Auth básica](#hito-2--auth-básica)
+- [Hito 3 — Evolución segura del catálogo](#hito-3--evolución-segura-del-catálogo)
 
 ## Índice conceptual mínimo
 
 - [Request/response](#hito-1--requestresponse--urlstemplates)
 - [URLs y templates](#hito-1--requestresponse--urlstemplates)
 - [Autenticación básica](#hito-2--auth-básica)
+- [Evolución incremental de dominio](#hito-3--evolución-segura-del-catálogo)
 - [Source of truth documental](#hito-0--mapa-documental-y-reglas-del-repo)
 
 ## Mantenimiento
@@ -156,3 +158,44 @@ La auth se considera comprendida cuando se puede explicar el flujo completo (for
 ### Próximo paso
 
 Extender estudio hacia catálogo + buscador integrando auth con casos de uso reales.
+
+## Hito 3 — Evolución segura del catálogo
+
+### Contexto
+
+Con la base de navegación y auth ya entendidas, el siguiente salto fue extender el dominio del catálogo sin romper el baseline histórico del proyecto.
+
+### Conceptos clave
+
+- Evolución incremental de modelos en Django.
+- Diferencia entre baseline histórico y ampliación posterior mediante migraciones.
+- Compatibilidad hacia atrás en datos y comportamiento público.
+- Relación `ForeignKey` opcional para enriquecer dominio sin forzar datos preexistentes.
+
+### Evidencia en código y docs
+
+- `tienda_videojuegos/catalogo/models.py` (`Genero`, `Producto.genero`, `fecha_lanzamiento`, descripciones, `precio_oferta`, `edad_minima`).
+- `tienda_videojuegos/catalogo/migrations/0001_initial.py` (baseline histórico intacto).
+- `tienda_videojuegos/catalogo/migrations/0002_genero_producto_extend.py` (ampliación incremental del dominio).
+- `tienda_videojuegos/catalogo/tests.py` (contratos de migración, dominio extendido, admin y seed).
+- `docs/project-state.md` (estado factual del catálogo extendido).
+
+### Criterio / decisión
+
+La evolución del catálogo se considera bien entendida cuando se puede explicar por qué los nuevos campos viven en una migración incremental y cómo eso protege compatibilidad con el MVP original.
+
+### Errores o malentendidos
+
+- Pensar que enriquecer el dominio obliga a reescribir la migración inicial.
+- Agregar campos nuevos sin distinguir cuáles deben ser opcionales para mantener compatibilidad.
+- Documentar “catálogo extendido” sin evidencia en tests de migración o comportamiento.
+
+### Checklist de autoverificación
+
+- [x] Puedo explicar por qué `0001_initial.py` se preserva como baseline y la ampliación ocurre en `0002_genero_producto_extend.py`.
+- [x] Puedo justificar por qué `genero` y otros campos nuevos son opcionales en términos de compatibilidad.
+- [x] Puedo señalar qué tests prueban la evolución segura del dominio.
+
+### Próximo paso
+
+Conectar esta evolución del dominio con casos de uso visibles del catálogo (filtros, detalle enriquecido y navegación por género) antes de seguir expandiendo features.

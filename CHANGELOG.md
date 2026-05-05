@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Hito pedagógico `Hito 3 — Evolución segura del catálogo` en `docs/learning-notebook.md` para consolidar el aprendizaje detrás de la ampliación del dominio.
+
+### Changed
+
+- `docs/project-state.md` ahora refleja explícitamente el catálogo extendido, su estrategia incremental de migraciones y la evidencia funcional asociada.
+
 ## [1.3.0] - 2026-04-29
 
 ### Added
