@@ -8,6 +8,8 @@ Referencias de soporte:
 - Cuaderno pedagógico: [docs/learning-notebook.md](learning-notebook.md)
 
 > Diferencia clave: este archivo define el **plan de estudio**; el cuaderno registra la **evidencia/reflexión por hito**.
+> El cuaderno funciona como **complemento pedagógico** y la **fuente canónica** de estado de implementación está en
+> [docs/project-state.md](project-state.md).
 
 ## Etapa 1 — Fundamentos
 

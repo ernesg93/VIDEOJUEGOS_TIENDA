@@ -146,6 +146,7 @@ class LearningNotebookDocumentationTests(TestCase):
             "## Hito 0 — Mapa documental y reglas del repo",
             "## Hito 1 — Request/response + URLs/templates",
             "## Hito 2 — Auth básica",
+            "## Hito 3 — Evolución segura del catálogo",
         ]:
             self.assertIn(milestone, notebook)
 
@@ -158,7 +159,7 @@ class LearningNotebookDocumentationTests(TestCase):
             "### Checklist de autoverificación",
             "### Próximo paso",
         ]:
-            self.assertEqual(notebook.count(required_block), 3)
+            self.assertEqual(notebook.count(required_block), 4)
 
     def test_learning_notebook_contains_minimum_concept_index_and_maintenance_rules(self):
         notebook = self._read("docs/learning-notebook.md")
@@ -207,3 +208,89 @@ class LearningNotebookDocumentationTests(TestCase):
         self.assertIn("consolidás aprendizaje pedagógico por hito", workflow.lower())
         self.assertIn("engram", workflow.lower())
         self.assertIn("fuera de precedencia", policy.lower())
+
+
+class PedagogicalTraceabilityContractTests(TestCase):
+    ETAPA_3_FUNCTIONAL_TOKENS = [
+        "catálogo paginado",
+        "query string",
+        "?q=",
+        "tienda_videojuegos/catalogo",
+        "tienda_videojuegos/buscador",
+    ]
+
+    ETAPA_3_CONCEPTUAL_TOKENS = [
+        "## Etapa 3",
+        "resultado observable",
+        "catálogo y buscador",
+    ]
+
+    ETAPA_3_DOCUMENTARY_TOKENS = [
+        "docs/project-state.md",
+        "docs/learning-path.md",
+        "complemento pedagógico",
+    ]
+
+    def setUp(self):
+        self.repo_root = Path(__file__).resolve().parents[2]
+
+    def _read(self, relative_path):
+        return (self.repo_root / relative_path).read_text(encoding="utf-8")
+
+    def _assert_contains_tokens(self, document, tokens, message):
+        for token in tokens:
+            self.assertIn(token, document, f"{message}: falta token '{token}'")
+
+    def test_project_state_contains_explicit_etapa_3_pagination_and_query_evidence(self):
+        project_state = self._read("docs/project-state.md")
+
+        self.assertIn("Etapa 3", project_state)
+        self._assert_contains_tokens(
+            project_state,
+            self.ETAPA_3_FUNCTIONAL_TOKENS,
+            "La evidencia funcional de Etapa 3 debe estar en project-state",
+        )
+
+    def test_learning_notebook_role_is_complementary_not_canonical(self):
+        notebook = self._read("docs/learning-notebook.md").lower()
+
+        self.assertIn("complemento pedagógico", notebook)
+        self.assertIn("docs/project-state.md", notebook)
+        self.assertIn("fuente canónica", notebook)
+
+    def test_learning_path_and_project_state_keep_notebook_role_consistent(self):
+        project_state = self._read("docs/project-state.md").lower()
+        learning_path = self._read("docs/learning-path.md").lower()
+
+        self.assertIn("complemento pedagógico", project_state)
+        self.assertIn("complemento pedagógico", learning_path)
+        self.assertIn("fuente canónica", project_state)
+        self.assertIn("fuente canónica", learning_path)
+
+    def test_traceability_claims_preserve_functional_conceptual_documentary_evidence_triad(self):
+        project_state = self._read("docs/project-state.md").lower()
+        learning_path = self._read("docs/learning-path.md").lower()
+        notebook = self._read("docs/learning-notebook.md").lower()
+
+        self._assert_contains_tokens(
+            project_state,
+            [token.lower() for token in self.ETAPA_3_FUNCTIONAL_TOKENS],
+            "Falta evidencia funcional",
+        )
+        self._assert_contains_tokens(
+            learning_path,
+            [token.lower() for token in self.ETAPA_3_CONCEPTUAL_TOKENS],
+            "Falta evidencia conceptual",
+        )
+        self._assert_contains_tokens(
+            notebook,
+            [token.lower() for token in self.ETAPA_3_DOCUMENTARY_TOKENS],
+            "Falta evidencia documental",
+        )
+
+    def test_scope_guard_declares_non_functional_runtime_boundary_for_traceability_change(self):
+        project_state = self._read("docs/project-state.md").lower()
+
+        self.assertIn("sin cambios en runtime", project_state)
+        self.assertIn("catalogo/views.py", project_state)
+        self.assertIn("buscador/views.py", project_state)

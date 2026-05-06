@@ -53,6 +53,24 @@ Apps locales registradas: `home`, `catalogo`, `buscador`, `usuarios`.
 - `tienda_videojuegos/usuarios/tests.py`
 - `tienda_videojuegos/home/tests_documentation.py`
 
+## Evidencia canónica de Etapa 3 (catálogo + buscador)
+
+Este documento actúa como **fuente canónica** para claims de implementación. En Etapa 3, el cuaderno es complemento pedagógico,
+pero la verificación factual vive acá.
+
+- Evidencia funcional de catálogo paginado:
+  - `tienda_videojuegos/catalogo/views.py` (listado con paginación)
+  - `tienda_videojuegos/catalogo/tests.py` (contratos de listado y navegación)
+- Evidencia funcional de buscador por query string:
+  - `tienda_videojuegos/buscador/views.py` (lectura de `?q=`)
+  - `tienda_videojuegos/buscador/tests.py` (casos con query string)
+- Evidencia documental/conceptual asociada:
+  - `docs/learning-path.md` (objetivo y resultado observable de Etapa 3)
+  - `docs/learning-notebook.md` (reflexión por hito como complemento pedagógico)
+
+Scope guard de trazabilidad pedagógica: **sin cambios en runtime** sobre `catalogo/views.py` y `buscador/views.py`; la
+corrección se limita a evidencia en tests/documentación.
+
 ## Trazabilidad de requirements (spec → docs)
 
 | Requirement (spec) | Archivo | Sección |

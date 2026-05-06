@@ -68,6 +68,25 @@ class CatalogoViewsContractTests(TestCase):
         self.assertTemplateUsed(response_detalle, "catalogo/detalle_juego.html")
         self.assertIn("juego", response_detalle.context)
 
+    def test_lista_juegos_paginacion_permita_navegar_con_query_page(self):
+        for index in range(7):
+            Producto.objects.create(
+                titulo=f"Juego Activo {index}",
+                precio=20 + index,
+                stock=2 + index,
+                plataforma="PC",
+                activo=True,
+            )
+
+        response = self.client.get(reverse("catalogo:lista_juegos"), {"page": 2})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["page_obj"].number, 2)
+        self.assertTrue(response.context["page_obj"].has_previous())
+        self.assertFalse(response.context["page_obj"].has_next())
+        self.assertEqual(len(response.context["page_obj"].object_list), 2)
+        self.assertIn(2, response.context["visible_pages"])
+
 
 class CatalogoMigrationContractTests(TestCase):
     def test_0001_initial_permanece_en_baseline_sin_genero_ni_campos_extra(self):

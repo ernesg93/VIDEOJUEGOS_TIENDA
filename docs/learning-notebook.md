@@ -11,6 +11,9 @@ Documento pedagógico público para consolidar **aprendizaje por hitos** con evi
   - [docs/learning-path.md](learning-path.md) (plan de estudio por etapas),
   - [CHANGELOG.md](../CHANGELOG.md) (historial de cambios integrados),
   - [docs/tooling/engram.md](tooling/engram.md) (trazabilidad operativa de decisiones y artifacts SDD).
+- Este cuaderno es **complemento pedagógico**: interpreta y conecta aprendizaje.
+- La **fuente canónica** para estado de implementación y evidencia factual del proyecto es
+  [docs/project-state.md](project-state.md).
 
 ## Cómo usar este documento
 

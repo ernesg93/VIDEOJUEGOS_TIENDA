@@ -40,6 +40,7 @@ Quiero que mantengamos este principio rector:
 cada avance debe dejar rastro funcional, conceptual y documental.
 
 Ayudame también a diseñar desde el inicio una estructura de documentación y seguimiento que preserve el aprendizaje entre sesiones.
+Dejemos explícito cuál va a ser la fuente factual/canónica del estado real del proyecto, cuál va a ser la documentación pedagógica y cuál será la memoria operativa.
 Si detectás que estoy pidiendo código sin comprensión suficiente, frená y enseñame primero.
 ```
 
@@ -55,6 +56,7 @@ Antes de proponer cambios, revisá la memoria disponible y la documentación pri
 Quiero que sigas actuando como mentor técnico-pedagógico primero, implementador después.
 Priorizá fundamentos, criterio y trazabilidad antes que velocidad.
 Mantené el principio rector: cada avance debe dejar rastro funcional, conceptual y documental.
+Verificá también que siga clara la diferencia entre estado factual/canónico, documentación pedagógica y memoria operativa.
 No asumas contexto sin verificar.
 ```
 
@@ -87,6 +89,9 @@ docs/
 └─ documentation-policy.md
 ```
 
+> Los **nombres de archivo** son sugeridos. Si tu stack, equipo o convención usa otros nombres, podés cambiarlos.
+> Lo que NO debería cambiar es la **responsabilidad** de cada documento.
+
 ### Propósito de cada archivo
 
 - `README.md` → puerta de entrada, objetivo del proyecto, por dónde empezar.
@@ -97,6 +102,19 @@ docs/
 - `docs/learning-notebook.md` → cuaderno de aprendizaje por hitos con evidencia.
 - `docs/workflow.md` → guía de trabajo con IA y criterio para elegir flujo.
 - `docs/documentation-policy.md` → reglas de precedencia y mantenimiento documental.
+
+### Fuentes de verdad y precedencia
+
+Para que la metodología siga sana al crecer o migrarse a otros repos, dejá explícita esta jerarquía:
+
+1. **Código ejecutable + tests vigentes** → mandan sobre afirmaciones narrativas.
+2. **`docs/project-state.md`** → fuente pública **factual/canónica** de lo que hoy existe en el proyecto.
+3. **`docs/learning-path.md`** → ordena el aprendizaje; no convierte algo en “implementado”.
+4. **`docs/learning-notebook.md`** → consolida aprendizaje con evidencia; es **complemento pedagógico**, no fuente factual/canónica.
+5. **`CHANGELOG.md`** → registra cambios integrados; no reemplaza el estado actual.
+6. **Memoria operativa (Engram o equivalente)** → guarda decisiones, artefactos, sesiones y contexto recuperable; no reemplaza la documentación pública.
+
+Si dos documentos parecen decir cosas distintas, el proyecto necesita una corrección de trazabilidad antes de seguir implementando.
 
 ---
 
@@ -118,6 +136,14 @@ docs/
 
 > Cada avance debe dejar rastro funcional, conceptual y documental.
 
+### Contrato de precedencia documental
+
+> El proyecto debe distinguir con claridad entre estado factual/canónico, documentación pedagógica y memoria operativa.
+
+### Contrato anti-ficción
+
+> Ninguna afirmación importante se documenta como hecho si no tiene evidencia en código, tests o verificación factual.
+
 ### Contrato de escala
 
 > Cambios chicos: flujo directo guiado. Cambios grandes: flujo formal.
@@ -134,6 +160,7 @@ docs/
 - [ ] Declarar explícitamente el rol pedagógico del asistente.
 - [ ] Establecer el principio rector.
 - [ ] Diseñar la estructura mínima de documentación.
+- [ ] Definir la fuente factual/canónica del proyecto.
 - [ ] Definir qué significa cambio chico vs cambio grande.
 - [ ] Crear una ruta de aprendizaje inicial.
 - [ ] Crear un documento de estado actual.
@@ -151,6 +178,7 @@ docs/
 - [ ] ¿Entiendo el problema que resuelve?
 - [ ] ¿Esto aplica realmente al proyecto actual?
 - [ ] ¿Es un cambio chico o grande?
+- [ ] ¿Qué documento debería ser la fuente canónica de este cambio?
 - [ ] ¿Qué evidencia debería dejar?
 
 ### Después del cambio
@@ -159,6 +187,7 @@ docs/
 - [ ] ¿Hay explicación conceptual?
 - [ ] ¿Quedó documentado?
 - [ ] ¿Se verificó?
+- [ ] ¿Hay alguna afirmación documental que suene verdadera pero no tenga evidencia?
 - [ ] ¿El aprendizaje quedó recuperable?
 
 ---
@@ -169,7 +198,7 @@ docs/
 
 Usalo cuando:
 
-- el cambio toca 1–2 archivos,
+- el cambio toca 1–3 archivos,
 - no hay decisión arquitectónica importante,
 - el concepto ya está claro,
 - el riesgo es bajo.
@@ -183,6 +212,19 @@ Usalo cuando:
 - querés dejar trazabilidad fuerte,
 - el cambio afecta estructura, arquitectura o metodología,
 - el tema todavía no está bien comprendido.
+
+El nombre del flujo puede cambiar (`SDD`, RFC liviano, ADR + plan, etc.), pero debería conservar estas responsabilidades mínimas:
+
+1. **Explorar** el problema o la idea.
+2. **Definir alcance** y qué queda afuera.
+3. **Especificar criterios verificables**.
+4. **Diseñar** la solución si hay decisiones relevantes.
+5. **Dividir en tareas** implementables.
+6. **Aplicar** con verificación disciplinada.
+7. **Verificar** contra lo prometido.
+8. **Cerrar/archivar** para dejar trazabilidad recuperable.
+
+Si el proceso formal no te obliga a pensar esas capas, probablemente sea solo burocracia con otro nombre.
 
 ---
 
@@ -201,6 +243,11 @@ Un avance puede considerarse bien cerrado cuando cumple estas tres capas:
 ### Rastro documental
 
 - quedó registrado dónde vive ese cambio y cómo retomarlo después.
+- el registro no contradice la evidencia factual del proyecto.
+
+### Regla anti-documentación-falsa
+
+Si un documento afirma algo que todavía no puede respaldarse con código, tests o verificación factual, eso no es trazabilidad: es ficción prolija.
 
 ---
 
@@ -212,6 +259,7 @@ Si el asistente está cumpliendo bien su rol, debería ayudarte a responder preg
 - ¿Qué problema resuelve realmente este paso del tutorial?
 - ¿Esto aporta ahora o es prematuro?
 - ¿Qué alternativa existe y qué tradeoff tiene?
+- ¿Cuál es la fuente canónica para afirmar esto dentro del proyecto?
 - ¿Qué documento habría que actualizar si implementamos esto?
 - ¿Cómo sabremos que realmente lo entendiste?
 
@@ -252,7 +300,7 @@ Para que el aprendizaje no dependa solo de la memoria del chat actual, el proyec
 ### Memoria operativa
 
 - decisiones técnicas,
-- artifacts de cambios,
+- artefactos de cambios,
 - resúmenes de sesiones,
 - criterios de trabajo y descubrimientos.
 
@@ -261,10 +309,13 @@ Esta memoria puede vivir en Engram o en el sistema de persistencia que uses.
 ### Memoria pública del proyecto
 
 - `README.md` para onboarding,
+- `PRD.md` para visión y prioridades,
+- `CHANGELOG.md` para historial integrado,
 - `docs/project-state.md` para estado factual,
 - `docs/learning-path.md` para ruta pedagógica,
 - `docs/learning-notebook.md` para hitos de aprendizaje,
-- `docs/workflow.md` para reglas de trabajo.
+- `docs/workflow.md` para reglas de trabajo,
+- `docs/documentation-policy.md` para precedencia documental.
 
 ### Qué revisar al retomar
 
@@ -275,7 +326,8 @@ Cuando abras una sesión nueva, el asistente debería revisar primero:
 3. el estado actual del proyecto,
 4. la ruta de aprendizaje,
 5. el cuaderno de aprendizaje,
-6. el workflow y la política documental.
+6. el workflow y la política documental,
+7. y, si el cambio toca prioridades o continuidad histórica, también el `PRD.md` y el `CHANGELOG.md`.
 
 Si esto no ocurre, el proyecto corre riesgo de perder continuidad metodológica.
 
@@ -288,6 +340,7 @@ Estas señales indican que la metodología se está rompiendo y conviene corregi
 - la IA propone código antes de explicar el concepto,
 - el tutorial empieza a mandar más que el criterio del proyecto,
 - los cambios se implementan sin dejar evidencia en tests o documentación,
+- aparecen promesas documentales sin evidencia factual,
 - ya no se distingue entre cambio chico y cambio grande,
 - el usuario no puede explicar por qué se hizo un cambio,
 - la documentación deja de reflejar el estado real,
@@ -306,7 +359,8 @@ Cuando se inicia un proyecto bajo esta metodología, la primera respuesta saluda
 3. proponer una estructura mínima de documentación y seguimiento,
 4. dejar claro que va a actuar como mentor técnico-pedagógico primero,
 5. explicar cómo decidir entre flujo directo y flujo formal,
-6. pedir solo el contexto faltante necesario antes de tocar código.
+6. identificar la posible fuente factual/canónica y la memoria operativa del proyecto,
+7. pedir solo el contexto faltante necesario antes de tocar código.
 
 ### Señales de una mala primera respuesta
 
@@ -315,6 +369,7 @@ La respuesta inicial del asistente está mal encaminada si:
 - salta directo a implementar,
 - responde como si el tutorial fuera una receta obligatoria,
 - no pregunta por objetivo de aprendizaje,
+- no intenta identificar la fuente factual/canónica del proyecto,
 - no propone estructura de persistencia,
 - no diferencia comprensión de ejecución.
 
