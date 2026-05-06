@@ -27,6 +27,7 @@ Documento pedagógico público para consolidar **aprendizaje por hitos** con evi
 - [Hito 1 — Request/response + URLs/templates](#hito-1--requestresponse--urlstemplates)
 - [Hito 2 — Auth básica](#hito-2--auth-básica)
 - [Hito 3 — Evolución segura del catálogo](#hito-3--evolución-segura-del-catálogo)
+- [Hito 4 — Contratos de búsqueda y UX incremental](#hito-4--contratos-de-búsqueda-y-ux-incremental)
 
 ## Índice conceptual mínimo
 
@@ -34,6 +35,7 @@ Documento pedagógico público para consolidar **aprendizaje por hitos** con evi
 - [URLs y templates](#hito-1--requestresponse--urlstemplates)
 - [Autenticación básica](#hito-2--auth-básica)
 - [Evolución incremental de dominio](#hito-3--evolución-segura-del-catálogo)
+- [Contratos de búsqueda](#hito-4--contratos-de-búsqueda-y-ux-incremental)
 - [Source of truth documental](#hito-0--mapa-documental-y-reglas-del-repo)
 
 ## Mantenimiento
@@ -141,26 +143,32 @@ Con request/response claro, el siguiente paso fue entender autenticación de usu
 - `tienda_videojuegos/usuarios/views.py` (vistas de autenticación y perfil).
 - `tienda_videojuegos/usuarios/tests.py` (evidencia en tests de comportamiento auth).
 - `docs/learning-path.md` (Etapa 2 — Usuarios y auth).
+- Contrato `?next=` en login: si el usuario llega desde una ruta protegida, vuelve a ese destino después de autenticarse.
+- Escenarios negativos cubiertos: logout anónimo redirige a login; registro inválido mantiene contexto y errores visibles.
 
 ### Criterio / decisión
 
-La auth se considera comprendida cuando se puede explicar el flujo completo (formulario -> vista -> sesión -> acceso a perfil) con evidencia en código y tests.
+La auth se considera comprendida cuando se puede explicar el flujo completo (formulario -> vista -> sesión -> acceso a perfil) con evidencia en código y tests, incluyendo qué pasa cuando el usuario llega desde una ruta protegida o cuando el formulario falla.
 
 ### Errores o malentendidos
 
 - Creer que auth es solo UI del formulario.
 - No diferenciar usuario autenticado de autorización por permisos.
 - Documentar “funciona” sin respaldo en tests o rutas.
+- Pensar que login exitoso siempre debe ir a home, ignorando la intención previa del usuario (`?next=`).
+- Cubrir solo caminos felices y no proteger errores de registro o logout anónimo.
 
 ### Checklist de autoverificación
 
 - [x] Puedo ubicar rutas de login/logout/perfil sin buscar globalmente.
 - [x] Puedo describir qué valida un test de auth existente.
 - [x] Puedo justificar una decisión de auth con evidencia de código/tests.
+- [x] Entiendo por qué `?next=` preserva intención de navegación y mejora la UX de autenticación.
+- [x] Sé identificar al menos dos escenarios negativos que también forman parte del contrato de auth.
 
 ### Próximo paso
 
-Extender estudio hacia catálogo + buscador integrando auth con casos de uso reales.
+Extender estudio hacia catálogo + buscador integrando auth con casos de uso reales y contratos visibles de UX.
 
 ## Hito 3 — Evolución segura del catálogo
 
@@ -202,3 +210,46 @@ La evolución del catálogo se considera bien entendida cuando se puede explicar
 ### Próximo paso
 
 Conectar esta evolución del dominio con casos de uso visibles del catálogo (filtros, detalle enriquecido y navegación por género) antes de seguir expandiendo features.
+
+## Hito 4 — Contratos de búsqueda y UX incremental
+
+### Contexto
+
+Antes de abrir una feature grande como carrito, necesitábamos endurecer comportamiento visible ya existente para aprender a trabajar con cambios chicos, criterios claros y tests que realmente protejan UX.
+
+### Conceptos clave
+
+- Contrato de búsqueda por query string.
+- Diferencia entre comportamiento real y expectativa mal formulada en tests.
+- UX incremental: preservar intención del usuario vale tanto como “hacer funcionar” la vista.
+- Escenarios negativos como parte del comportamiento, no como casos accesorios.
+
+### Evidencia en código y docs
+
+- `tienda_videojuegos/buscador/tests.py` (query vacía, productos inactivos, sin resultados, nombre + plataforma, paginación con query string).
+- `tienda_videojuegos/usuarios/tests.py` (redirect con `?next=`, logout anónimo, registro inválido).
+- `tienda_videojuegos/usuarios/views.py` (validación segura de `next` con `url_has_allowed_host_and_scheme`).
+- `tienda_videojuegos/usuarios/templates/usuarios/login.html` (preservación de `next` en hidden input).
+- `docs/learning-path.md` (Etapa 4 — mejoras incrementales).
+
+### Criterio / decisión
+
+No toda mejora valiosa es una feature nueva. En esta etapa decidimos que primero conviene fortalecer contratos visibles del sistema ya existente: búsquedas, errores, redirecciones e intención de navegación. Eso prepara mejor el terreno para futuras features de negocio.
+
+### Errores o malentendidos
+
+- Creer que un test aporta valor solo por existir, aunque afirme una expectativa incorrecta.
+- Tratar query vacía como caso “menor” en vez de definir explícitamente su contrato.
+- Pensar que auth correcta es solo validar credenciales, sin preservar el destino original del usuario.
+- Saltar a carrito sin antes dominar estado, navegación y contratos visibles del sistema actual.
+
+### Checklist de autoverificación
+
+- [x] Puedo explicar por qué una query vacía del buscador muestra todos los productos activos en este proyecto.
+- [x] Puedo señalar qué tests protegen resultados vacíos, productos inactivos y paginación con query string.
+- [x] Entiendo por qué `?next=` debe validarse y no redirigirse ciegamente.
+- [x] Puedo justificar por qué estas mejoras chicas fortalecen fundamentos antes de abrir carrito.
+
+### Próximo paso
+
+Pasar del refinamiento visible a la exploración conceptual de estado y sesión en Django para evaluar con criterio qué tipo de carrito tendría sentido implementar después.
