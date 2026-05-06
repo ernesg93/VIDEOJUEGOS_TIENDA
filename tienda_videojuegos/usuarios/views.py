@@ -2,8 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from .forms import LoginUsuarioForm, RegistroUsuarioForm
+
 
 def login_view(request):
     """Handle login form submission and redirect home when authenticated.
@@ -19,6 +21,13 @@ def login_view(request):
         if form.is_valid():
             auth_login(request, form.get_user())
             messages.success(request, "Inicio de sesion correcto.")
+            next_url = request.POST.get("next") or request.GET.get("next")
+            if next_url and url_has_allowed_host_and_scheme(
+                url=next_url,
+                allowed_hosts={request.get_host()},
+                require_https=request.is_secure(),
+            ):
+                return redirect(next_url)
             return redirect("home")
         username = request.POST.get("username", "").strip()
         password = request.POST.get("password", "")
@@ -30,7 +39,14 @@ def login_view(request):
     else:
         form = LoginUsuarioForm(request)
 
-    return render(request, "usuarios/login.html", {"form": form})
+    return render(
+        request,
+        "usuarios/login.html",
+        {
+            "form": form,
+            "next_url": request.GET.get("next", ""),
+        },
+    )
 
 
 @login_required(login_url="usuarios:login")

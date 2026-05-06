@@ -40,6 +40,20 @@ class RegistroViewTests(TestCase):
         self.assertRedirects(response, reverse("home"))
         self.assertIn("_auth_user_id", self.client.session)
 
+    def test_login_view_redirects_to_next_when_present(self):
+        User.objects.create_user(username="ernesg93", password="ClaveSegura123!")
+
+        response = self.client.post(
+            f'{reverse("usuarios:login")}?next={reverse("usuarios:perfil")}',
+            {
+                "username": "ernesg93",
+                "password": "ClaveSegura123!",
+            },
+        )
+
+        self.assertRedirects(response, reverse("usuarios:perfil"))
+        self.assertIn("_auth_user_id", self.client.session)
+
     def test_login_view_shows_generic_error_with_invalid_credentials(self):
         User.objects.create_user(username="ernesg93", password="ClaveSegura123!")
 
@@ -119,6 +133,11 @@ class RegistroViewTests(TestCase):
 
         self.assertRedirects(response, reverse("usuarios:perfil"))
 
+    def test_logout_view_redirects_anonymous_user_to_login(self):
+        response = self.client.post(reverse("usuarios:logout"))
+
+        self.assertRedirects(response, f'{reverse("usuarios:login")}?next={reverse("usuarios:logout")}')
+
     def test_registro_view_creates_user_and_logs_in(self):
         response = self.client.post(
             reverse("usuarios:registro"),
@@ -133,3 +152,37 @@ class RegistroViewTests(TestCase):
         self.assertRedirects(response, reverse("home"))
         self.assertTrue(User.objects.filter(username="nuevo_usuario").exists())
         self.assertIn("_auth_user_id", self.client.session)
+
+    def test_registro_view_stays_on_page_when_password_confirmation_is_invalid(self):
+        response = self.client.post(
+            reverse("usuarios:registro"),
+            {
+                "username": "nuevo_usuario",
+                "email": "nuevo@email.com",
+                "password1": "ClaveSegura123!",
+                "password2": "OtraClave123!",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)  # type: ignore[attr-defined]
+        self.assertTemplateUsed(response, "usuarios/registro.html")
+        self.assertFalse(User.objects.filter(username="nuevo_usuario").exists())
+        self.assertTrue(response.context["form"].errors)
+
+    def test_registro_view_stays_on_page_when_username_already_exists(self):
+        User.objects.create_user(username="nuevo_usuario", password="ClaveSegura123!")
+
+        response = self.client.post(
+            reverse("usuarios:registro"),
+            {
+                "username": "nuevo_usuario",
+                "email": "otro@email.com",
+                "password1": "ClaveSegura123!",
+                "password2": "ClaveSegura123!",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)  # type: ignore[attr-defined]
+        self.assertTemplateUsed(response, "usuarios/registro.html")
+        self.assertEqual(User.objects.filter(username="nuevo_usuario").count(), 1)
+        self.assertTrue(response.context["form"].errors)
