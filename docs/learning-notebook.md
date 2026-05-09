@@ -95,35 +95,53 @@ Necesitábamos entender cómo una URL termina en una respuesta renderizada para 
 ### Conceptos clave
 
 - Ciclo request/response en Django.
+- Diferencia entre proyecto Django y app Django.
 - Enrutamiento con `urls.py`.
 - Render de templates por app.
+- Contexto explícito vs contexto implícito por `context_processors`.
 
 ### Evidencia en código y docs
 
 - `tienda_videojuegos/tienda_videojuegos/urls.py` (router principal).
+- `tienda_videojuegos/tienda_videojuegos/settings.py` (`INSTALLED_APPS`, `TEMPLATES`, `context_processors`).
+- `tienda_videojuegos/manage.py` (punto de entrada operativo del proyecto).
 - `tienda_videojuegos/catalogo/urls.py` y `tienda_videojuegos/buscador/urls.py` (namespaces por app).
+- `tienda_videojuegos/usuarios/urls.py` y `tienda_videojuegos/usuarios/views.py` (caso concreto `/usuarios/perfil/`).
 - `tienda_videojuegos/templates/base.html` y templates en `tienda_videojuegos/catalogo/templates/catalogo/` (render y herencia).
+- `tienda_videojuegos/usuarios/templates/usuarios/login.html` y `perfil.html` (messages, `request.user`, hidden `next`).
 - `docs/learning-path.md` (etapas de fundamentos y resultado observable).
 
 ### Criterio / decisión
 
 Para estudiar una funcionalidad nueva, primero se sigue la ruta URL -> vista -> template -> test/documentación; recién después se evalúa refactor.
+Además, antes de leer una app hay que distinguir qué pertenece al **proyecto** (settings, wiring global, router principal) y qué pertenece a la **app** (rutas locales, vistas, templates, comportamiento visible).
+La lectura correcta del sistema exige precisión: el router principal **deleg a** rutas de app (no “redirige” al navegador), una vista devuelve **responses** (HTML o redirect), y el template no inventa datos sino que consume contexto explícito o inyectado.
 
 ### Errores o malentendidos
 
 - Buscar lógica de negocio en templates.
 - Saltar directo al CSS sin verificar vista y contexto.
 - Cambiar rutas sin revisar nombres y enlaces dependientes.
+- Confundir la carpeta interna `tienda_videojuegos/tienda_videojuegos/` con una app más, en vez de verla como configuración global del proyecto.
+- Pensar que todo dato del template viene del diccionario manual de la vista, ignorando `request`, `messages` y otros context processors.
+- Creer que una vista “siempre renderiza” sin considerar decoradores como `login_required` que pueden convertir la respuesta en redirect.
+- Usar “redirección” cuando en realidad hubo delegación de routing interno entre `urls.py` principal y `urls.py` de app.
+- Confundir request con response y perder de vista que `render(...)` y `redirect(...)` construyen respuestas distintas.
 
 ### Checklist de autoverificación
 
 - [x] Puedo trazar `/catalogo/` desde URL hasta template.
 - [x] Distingo URL principal vs URL por app.
 - [x] Verifico una ruta con evidencia en archivo real antes de documentar.
+- [x] Puedo explicar la diferencia entre proyecto Django y app Django en este repo.
+- [x] Puedo trazar `/usuarios/perfil/` incluyendo el caso autenticado y el redirect con `?next=` cuando el usuario es anónimo.
+- [x] Puedo distinguir contexto explícito (`form`, `next_url`) de contexto implícito (`request`, `messages`) en un template.
+- [x] Puedo explicar por qué `INSTALLED_APPS` y `MIDDLEWARE` sostienen comportamiento real del proyecto y no son “configuración decorativa”.
+- [x] Puedo decir qué tocaría globalmente si mañana agregáramos una app nueva como `carrito`.
 
 ### Próximo paso
 
-Sumar autenticación básica para comprender flujo de usuario y permisos iniciales.
+Profundizar `settings.py` con sentido sistémico: entender cómo `INSTALLED_APPS`, `MIDDLEWARE`, `TEMPLATES`, base de datos y archivos estáticos sostienen el comportamiento observado en las apps.
 
 ## Hito 2 — Auth básica
 
